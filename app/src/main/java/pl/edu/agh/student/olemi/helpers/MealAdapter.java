@@ -89,6 +89,7 @@ public class MealAdapter extends ArrayAdapter<ProductModel> implements Filterabl
 
         TextView list_meal_info_calories = (TextView) listItem.findViewById(R.id.list_meal_info_calories);
         list_meal_info_calories.setText("Cal: "+productModel.getNutrients().getCalories().toString());
+
         return listItem;
     }
 
@@ -112,7 +113,6 @@ public class MealAdapter extends ArrayAdapter<ProductModel> implements Filterabl
                 for (ProductModel productModel : mealList) {
                     if (productModel.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         tempList.add(productModel);
-                        System.out.println(productModel.getName());
                     }
                 }
 
@@ -123,7 +123,6 @@ public class MealAdapter extends ArrayAdapter<ProductModel> implements Filterabl
                 filterResults.values = mealList;
             }
 
-            System.out.println(((List<ProductModel>) filterResults.values).get(0).getName());
             return filterResults;
         }
 
