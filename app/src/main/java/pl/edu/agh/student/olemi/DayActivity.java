@@ -1,5 +1,6 @@
 package pl.edu.agh.student.olemi;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.helpers.MealAdapter;
 import pl.edu.agh.student.olemi.model.Nutrients;
 import pl.edu.agh.student.olemi.model.ProductModel;
@@ -26,6 +28,12 @@ public class DayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
+
+        Toolbar myChildToolbar =(Toolbar) findViewById(R.id.day_toolbar);
+        setSupportActionBar(myChildToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
 
       List<ProductModel> productModels = new ArrayList<>();
       productModels.add(new SimpleProduct("jajko", new Nutrients(2.137, 2.137, 2.137, 2.137)));

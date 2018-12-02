@@ -75,7 +75,7 @@
             android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,4 +88,12 @@
     </RelativeLayout>
 
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/day_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 </androidx.constraintlayout.widget.ConstraintLayout>
