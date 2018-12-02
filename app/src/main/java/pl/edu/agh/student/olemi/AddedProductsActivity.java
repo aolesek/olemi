@@ -1,6 +1,5 @@
 package pl.edu.agh.student.olemi;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,6 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import pl.edu.agh.student.olemi.model.Pair;
 import pl.edu.agh.student.olemi.model.SimpleProduct;
 
