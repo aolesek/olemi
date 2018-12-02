@@ -15,7 +15,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import pl.edu.agh.student.olemi.R;
-import pl.edu.agh.student.olemi.model_maciek.ProductModel;
+import pl.edu.agh.student.olemi.models.ProductModel;
 
 public class MealAdapter extends ArrayAdapter<ProductModel> implements Filterable {
 
@@ -79,16 +79,16 @@ public class MealAdapter extends ArrayAdapter<ProductModel> implements Filterabl
         list_meal_name.setText(productModel.getName());
 
         TextView list_meal_info_carbs = (TextView) listItem.findViewById(R.id.list_meal_info_carbs);
-        list_meal_info_carbs.setText("C: "+productModel.getNutrients().getCarbs().toString());
+        list_meal_info_carbs.setText("C: "+productModel.getNutrients().carbohydrates.toString());
 
         TextView list_meal_info_protein = (TextView) listItem.findViewById(R.id.list_meal_info_protein);
-        list_meal_info_protein.setText("P: "+productModel.getNutrients().getProtein().toString());
+        list_meal_info_protein.setText("P: "+productModel.getNutrients().protein.toString());
 
         TextView list_meal_info_fat = (TextView) listItem.findViewById(R.id.list_meal_info_fat);
-        list_meal_info_fat.setText("F: "+productModel.getNutrients().getFat().toString());
+        list_meal_info_fat.setText("F: "+productModel.getNutrients().fats.toString());
 
         TextView list_meal_info_calories = (TextView) listItem.findViewById(R.id.list_meal_info_calories);
-        list_meal_info_calories.setText("Cal: "+productModel.getNutrients().getCalories().toString());
+        list_meal_info_calories.setText("Cal: "+productModel.getNutrients().calories.toString());
 
         return listItem;
     }

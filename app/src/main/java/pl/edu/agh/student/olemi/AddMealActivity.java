@@ -30,8 +30,9 @@ import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.helpers.SearchMealAdapter;
 import pl.edu.agh.student.olemi.model_maciek.Nutrients;
 import pl.edu.agh.student.olemi.model_maciek.Pair;
-import pl.edu.agh.student.olemi.model_maciek.ProductModel;
+import pl.edu.agh.student.olemi.models.ProductModel;
 import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
+import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
 
 public class AddMealActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -54,10 +55,11 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
     }
 
     public void initList() {
-        productModels = new ArrayList<>();
-        productModels.add(new SimpleProduct("jajko", new Nutrients(2.137, 2.137, 2.137, 2.137)));
-        productModels.add(new SimpleProduct("bozena", new Nutrients(2.1, 2.137, 2.137, 2.137)));
-        productModels.add(new SimpleProduct("abc", new Nutrients(1.1, 2.137, 2.137, 2.137)));
+        List<ProductModel> productModels = new ArrayList<>();
+
+        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
+        npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
+
         mealAdapter = new SearchMealAdapter(this, productModels);
         final ListView listView = findViewById(R.id.list_new_meal_search);
         listView.setAdapter(mealAdapter);
@@ -70,6 +72,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
             }
         });
     }
+
 
     public void onButtonShowPopupWindowClick(View view, final ProductModel productModel) {
 

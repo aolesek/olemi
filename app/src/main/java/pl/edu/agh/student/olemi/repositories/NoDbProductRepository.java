@@ -37,7 +37,7 @@ public class NoDbProductRepository implements ProductRepository {
 
     @Override
     public Flowable<List<ProductModel>> getProductsWithLimit(long limit) {
-        return Flowable.just(mockDatabase.availableProducts.stream().limit(10).collect(Collectors.toList()));
+        return Flowable.just(mockDatabase.availableProducts.stream().limit(limit).collect(Collectors.toList()));
     }
 
     @Override
