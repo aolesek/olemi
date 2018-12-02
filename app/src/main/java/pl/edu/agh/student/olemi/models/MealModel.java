@@ -7,16 +7,20 @@ import pl.edu.agh.student.olemi.entities.Product;
 public class MealModel {
 
     private Calendar day;
-    private Product product;
+    private ProductModel product;
     private Double weight;
 
+    public MealModel(Calendar day, ProductModel product, Double weight) {
+        this.day = day;
+        this.product = product;
+        this.weight = weight;
+    }
 
-
-    public Product getProduct() {
+    public ProductModel getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductModel product) {
         this.product = product;
     }
 

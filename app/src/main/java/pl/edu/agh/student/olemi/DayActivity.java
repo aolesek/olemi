@@ -21,9 +21,11 @@ import java.util.List;
 import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
 import pl.edu.agh.student.olemi.helpers.MealAdapter;
+import pl.edu.agh.student.olemi.logging.DebugLogTree;
 import pl.edu.agh.student.olemi.model_maciek.Nutrients;
 import pl.edu.agh.student.olemi.model_maciek.ProductModel;
 import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
+import timber.log.Timber;
 import pl.edu.agh.student.olemi.models.MealModel;
 import pl.edu.agh.student.olemi.models.SimpleProductModel;
 import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
@@ -37,6 +39,8 @@ public class DayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
+
+        Timber.plant(new DebugLogTree());
 
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.day_toolbar);
         setSupportActionBar(myChildToolbar);

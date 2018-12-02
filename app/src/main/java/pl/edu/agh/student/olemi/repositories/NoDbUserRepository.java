@@ -21,6 +21,7 @@ import pl.edu.agh.student.olemi.database.MockDatabase;
 import pl.edu.agh.student.olemi.entities.Nutrients;
 import pl.edu.agh.student.olemi.entities.Product;
 import pl.edu.agh.student.olemi.models.MealModel;
+import pl.edu.agh.student.olemi.models.ProductModel;
 import pl.edu.agh.student.olemi.models.UserDataModel;
 
 public class NoDbUserRepository implements UserRepository {
@@ -32,6 +33,11 @@ public class NoDbUserRepository implements UserRepository {
     @Override
     public Completable insertMeal(MealModel mealModel) {
         return Completable.fromRunnable(() -> mockDatabase.meals.put(mealModel.getDay(), mealModel));
+    }
+
+    @Override
+    public Completable insertUserData(UserDataModel userDataModel) {
+        return Completable.fromRunnable(() -> mockDatabase.userData = userDataModel);
     }
 
     @Override
@@ -61,7 +67,7 @@ public class NoDbUserRepository implements UserRepository {
     public Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(Calendar day) {
         final Set<Nutrients> allDayNutrients = mockDatabase.meals.get(day).stream()
                 .map(MealModel::getProduct)
-                .map(Product::getNutrients)
+                .map(ProductModel::getNutrients)
                 .collect(Collectors.toSet());
         final Nutrients sumOfNutrients = Nutrients.sumOf(allDayNutrients.toArray(new Nutrients[0]));
         return Single.just(Pair.create(sumOfNutrients, mockDatabase.userData));

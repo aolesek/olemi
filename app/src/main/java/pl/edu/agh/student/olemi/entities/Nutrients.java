@@ -34,6 +34,13 @@ public class Nutrients {
         this.fats += otherNutrients.fats;
     }
 
+    public void multiplyBy(Double factor) {
+        this.calories = (int) (factor * this.calories);
+        this.protein = (int) (factor * this.protein);
+        this.carbohydrates = (int) (factor * this.carbohydrates);
+        this.fats = (int) (factor * this.fats);
+    }
+
     public static Nutrients sumOf(Nutrients... nutrients) {
         final Nutrients result = NutrientsBuilder.aNutrients().withCalories(0).withCarbohydrates(0).withFats(0).withProtein(0).build();
         Stream.of(nutrients).forEach(result::add);
