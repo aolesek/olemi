@@ -17,7 +17,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
-        <activity android:name=".AddMealActivity"></activity>
+        <activity
+            android:name=".AddMealActivity"
+            android:parentActivityName=".DayActivity">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"></meta-data>
+        </activity>
+        <activity android:name=".AddedProductsActivity"></activity>
     </application>
 
 </manifest>

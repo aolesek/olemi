@@ -1,7 +1,10 @@
 package pl.edu.agh.student.olemi;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,10 +33,18 @@ public class DayActivity extends AppCompatActivity {
       ListView listView = findViewById(R.id.list21);
       listView.setAdapter(mealAdapter);
 
-        TextView allCalories = findViewById(R.id.allCalories);
-        TextView allNutrients = findViewById(R.id.allNutrients);
-        allCalories.setText("1200/2500kcal");
-        allNutrients.setText("C: 50g P: 15g F: 33g");
+      TextView allCalories = findViewById(R.id.allCalories);
+      TextView allNutrients = findViewById(R.id.allNutrients);
+      allCalories.setText("1200/2500kcal");
+      allNutrients.setText("C: 50g P: 15g F: 33g");
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DayActivity.this, AddMealActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
