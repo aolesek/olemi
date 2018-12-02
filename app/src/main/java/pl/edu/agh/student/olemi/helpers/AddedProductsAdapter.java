@@ -15,16 +15,17 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import pl.edu.agh.student.olemi.R;
-import pl.edu.agh.student.olemi.models.MealModel;
+import pl.edu.agh.student.olemi.models.IngredientModel;
+import pl.edu.agh.student.olemi.models.ProductModel;
 
-public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
+public class AddedProductsAdapter extends ArrayAdapter<IngredientModel> implements Filterable {
 
     private Context mContext;
-    private List<MealModel> mealList;
+    private List<IngredientModel> mealList;
     private MealFilter mealFilter;
-    private List<MealModel> filteredList;
+    private List<IngredientModel> filteredList;
 
-    public MealAdapter(@NonNull Context context, List<MealModel> list) {
+    public AddedProductsAdapter(@NonNull Context context, List<IngredientModel> list) {
         super(context, 0, list);
         this.mContext = context;
         this.mealList = list;
@@ -51,7 +52,7 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
      * @return list item
      */
     @Override
-    public MealModel getItem(int i) {
+    public IngredientModel getItem(int i) {
         return filteredList.get(i);
     }
 
@@ -71,24 +72,12 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
         View listItem = convertView;
         if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.search_list_item,parent,false);
 
-        MealModel productModel = mealList.get(position);
+        IngredientModel productModel = mealList.get(position);
 
-        TextView list_meal_name = (TextView) listItem.findViewById(R.id.list_meal_name);
-        list_meal_name.setText(productModel.getProduct().getName());
-
-        TextView list_meal_info_carbs = (TextView) listItem.findViewById(R.id.list_meal_info_carbs);
-        list_meal_info_carbs.setText("C: "+productModel.getProduct().getNutrients().carbohydrates.toString());
-
-        TextView list_meal_info_protein = (TextView) listItem.findViewById(R.id.list_meal_info_protein);
-        list_meal_info_protein.setText("P: "+productModel.getProduct().getNutrients().protein.toString());
-
-        TextView list_meal_info_fat = (TextView) listItem.findViewById(R.id.list_meal_info_fat);
-        list_meal_info_fat.setText("F: "+productModel.getProduct().getNutrients().fats.toString());
-
-        TextView list_meal_info_calories = (TextView) listItem.findViewById(R.id.list_meal_info_calories);
-        list_meal_info_calories.setText("Cal: "+productModel.getProduct().getNutrients().calories.toString());
+        TextView list_search_name = (TextView) listItem.findViewById(R.id.list_search_name);
+        list_search_name.setText(productModel.getProduct().getName());
 
         return listItem;
     }
@@ -107,10 +96,10 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults filterResults = new FilterResults();
             if (constraint!=null && constraint.length()>0) {
-                ArrayList<MealModel> tempList = new ArrayList<MealModel>();
+                ArrayList<IngredientModel> tempList = new ArrayList<IngredientModel>();
 
                 // search content in friend list
-                for (MealModel productModel : mealList) {
+                for (IngredientModel productModel : mealList) {
                     if (productModel.getProduct().getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         tempList.add(productModel);
                     }
@@ -134,7 +123,7 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredList = (List<MealModel>) results.values;
+            filteredList = (List<IngredientModel>) results.values;
             clear();
             addAll(filteredList);
             notifyDataSetChanged();

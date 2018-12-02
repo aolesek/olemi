@@ -8,7 +8,7 @@ import pl.edu.agh.student.olemi.model_maciek.ComplexProduct;
 
 public class ComplexProductModel implements ProductModel {
 
-    private final String name;
+    private String name;
 
     private List<IngredientModel> ingredients = new LinkedList<IngredientModel>();
 
@@ -41,6 +41,10 @@ public class ComplexProductModel implements ProductModel {
 
     public void setIngredients(List<IngredientModel> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addIngredient(IngredientModel ingredient) {

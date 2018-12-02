@@ -7,9 +7,7 @@ import pl.edu.agh.student.olemi.entities.Product;
 public class MealModel {
 
     private Calendar day;
-
     private ProductModel product;
-
     private Double weight;
 
     public MealModel(Calendar day, ProductModel product, Double weight) {

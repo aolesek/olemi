@@ -15,7 +15,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import pl.edu.agh.student.olemi.R;
-import pl.edu.agh.student.olemi.model_maciek.ProductModel;
+import pl.edu.agh.student.olemi.models.ProductModel;
 
 public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Filterable {
 
@@ -107,6 +107,7 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
                 filterResults.count = tempList.size();
                 filterResults.values = tempList;
             } else {
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
                 filterResults.count = mealList.size();
                 filterResults.values = mealList;
             }

@@ -19,12 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
+import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
 import pl.edu.agh.student.olemi.helpers.MealAdapter;
 import pl.edu.agh.student.olemi.logging.DebugLogTree;
 import pl.edu.agh.student.olemi.model_maciek.Nutrients;
 import pl.edu.agh.student.olemi.model_maciek.ProductModel;
 import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
 import timber.log.Timber;
+import pl.edu.agh.student.olemi.models.MealModel;
+import pl.edu.agh.student.olemi.models.SimpleProductModel;
+import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
 
 public class DayActivity extends AppCompatActivity {
 
@@ -41,10 +45,14 @@ public class DayActivity extends AppCompatActivity {
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.day_toolbar);
         setSupportActionBar(myChildToolbar);
 
+        initRepo();
 
-        List<ProductModel> productModels = new ArrayList<>();
-        productModels.add(new SimpleProduct("jajko", new Nutrients(2.137, 2.137, 2.137, 2.137)));
-        productModels.add(new SimpleProduct("bożena", new Nutrients(2.137, 2.137, 2.137, 2.137)));
+//
+        List<MealModel> productModels = new ArrayList<>();
+
+//        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
+//        npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
+
         mealAdapter = new MealAdapter(this, productModels);
         ListView listView = findViewById(R.id.list21);
         listView.setAdapter(mealAdapter);
@@ -62,6 +70,23 @@ public class DayActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+    }
+
+    public void initRepo(){
+        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
+        pl.edu.agh.student.olemi.entities.Nutrients nutrients = NutrientsBuilder.aNutrients()
+                .withCalories(100)
+                .withCarbohydrates(12)
+                .withFats(34)
+                .withProtein(14)
+                .build();
+        SimpleProductModel sp = new SimpleProductModel("maryna", nutrients);
+        SimpleProductModel sp2 = new SimpleProductModel("kasztan", nutrients);
+        SimpleProductModel sp3 = new SimpleProductModel("smietana", nutrients);
+        npr.insertProduct(sp).subscribe();
+        npr.insertProduct(sp2).subscribe();
+        npr.insertProduct(sp3).subscribe();
     }
 
     @Override
