@@ -44,8 +44,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-alpha01'
-}
 
-//implementation("android.arch.work:work-runtime:1.0.0-alpha09") {
-//    exclude group: 'com.google.guava', module: 'listenablefuture'
-//}
+    implementation 'com.android.support:design:28.0.0'
+}

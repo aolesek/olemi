@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/list_meal_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="Meal Name" />
+
+    <TextView
+        android:id="@+id/list_meal_info_carbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="51dp"
+        android:padding="15dp"
+        android:text="ABC" />
+
+    <TextView
+        android:id="@+id/list_meal_info_protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="51dp"
+        android:layout_toEndOf="@+id/list_meal_info_carbs"
+        android:padding="15dp"
+        android:text="ABC" />
+
+    <TextView
+        android:id="@+id/list_meal_info_fat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="51dp"
+        android:layout_toEndOf="@+id/list_meal_info_protein"
+        android:padding="15dp"
+        android:text="ABC" />
+
+    <TextView
+        android:id="@+id/list_meal_info_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="51dp"
+        android:layout_toEndOf="@+id/list_meal_info_fat"
+        android:padding="15dp"
+        android:text="ABC" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
