@@ -49,7 +49,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void dbTests() {
-        final ProductRepository repository = new NoDbProductRepository();
+        final ProductRepository repository = new NoDbProductRepository(getApplicationContext());
         final Nutrients nutrients = NutrientsBuilder.aNutrients()
                 .withCalories(100)
                 .withCarbohydrates(12)

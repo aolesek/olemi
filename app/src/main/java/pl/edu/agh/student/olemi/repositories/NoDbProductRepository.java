@@ -1,23 +1,28 @@
 package pl.edu.agh.student.olemi.repositories;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import pl.edu.agh.student.olemi.database.MockDatabase;
 import pl.edu.agh.student.olemi.models.ComplexProductModel;
 import pl.edu.agh.student.olemi.models.ProductModel;
 import pl.edu.agh.student.olemi.models.SimpleProductModel;
 
 public class NoDbProductRepository implements ProductRepository {
 
-    private final List<ProductModel> availableProducts = new ArrayList<>();
+    MockDatabase mockDatabase = MockDatabase.getInstance();
+
+    public NoDbProductRepository(Context context) {
+    }
 
     @Override
     public Completable insertProduct(ProductModel product) {
-        availableProducts.add(product);
-        return Completable.fromRunnable(() -> availableProducts.add(product));
+        return Completable.fromRunnable(() -> mockDatabase.availableProducts.add(product));
     }
 
     @Override
@@ -32,11 +37,11 @@ public class NoDbProductRepository implements ProductRepository {
 
     @Override
     public Flowable<List<ProductModel>> getProductsWithLimit(long limit) {
-        return Flowable.just(availableProducts.stream().limit(10).collect(Collectors.toList()));
+        return Flowable.just(mockDatabase.availableProducts.stream().limit(10).collect(Collectors.toList()));
     }
 
     @Override
     public Flowable<List<ProductModel>> serachProducts(String phrase) {
-        return Flowable.just(availableProducts.stream().filter(productModel -> productModel.getName().contains(phrase)).collect(Collectors.toList()));
+        return Flowable.just(mockDatabase.availableProducts.stream().filter(productModel -> productModel.getName().contains(phrase)).collect(Collectors.toList()));
     }
 }
