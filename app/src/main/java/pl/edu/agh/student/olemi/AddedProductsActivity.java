@@ -28,9 +28,8 @@ public class AddedProductsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(holdInfo.getIngredientModelList().size()>1){
-                    ComplexProductModel cpm = new ComplexProductModel();
+                    ComplexProductModel cpm = new ComplexProductModel("meal "+holdInfo);
                     cpm.setIngredients(holdInfo.getIngredientModelList());
-                    cpm.setName("meal "+holdInfo);
 
                 }else {
 
