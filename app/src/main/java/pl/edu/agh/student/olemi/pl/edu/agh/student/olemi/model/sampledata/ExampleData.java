@@ -40,6 +40,7 @@ public class ExampleData {
     }
 
     private void generateComplexProducts() {
+
         //TODO: implement
     }
 
