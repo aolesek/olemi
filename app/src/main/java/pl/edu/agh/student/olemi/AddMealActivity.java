@@ -2,12 +2,10 @@ package pl.edu.agh.student.olemi;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,29 +16,22 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.edu.agh.student.olemi.helpers.MealAdapter;
+import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.helpers.SearchMealAdapter;
-import pl.edu.agh.student.olemi.helpers.ViewGroupUtils;
-import pl.edu.agh.student.olemi.model.ComplexProduct;
-import pl.edu.agh.student.olemi.model.Nutrients;
-import pl.edu.agh.student.olemi.model.Pair;
-import pl.edu.agh.student.olemi.model.ProductModel;
-import pl.edu.agh.student.olemi.model.SimpleProduct;
+import pl.edu.agh.student.olemi.model_maciek.Nutrients;
+import pl.edu.agh.student.olemi.model_maciek.Pair;
+import pl.edu.agh.student.olemi.model_maciek.ProductModel;
+import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
 
 public class AddMealActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -62,7 +53,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
         setActionBar();
     }
 
-    public void initList(){
+    public void initList() {
         productModels = new ArrayList<>();
         productModels.add(new SimpleProduct("jajko", new Nutrients(2.137, 2.137, 2.137, 2.137)));
         productModels.add(new SimpleProduct("bozena", new Nutrients(2.1, 2.137, 2.137, 2.137)));
@@ -99,7 +90,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
 
         // set product name
         View contentView = popupWindow.getContentView();
-        TextView productName =  contentView.findViewById(R.id.popup_product_name);
+        TextView productName = contentView.findViewById(R.id.popup_product_name);
         productName.setText(productModel.getName());
 
         Button dismissButton = contentView.findViewById(R.id.button_dissmiss_popup);
@@ -115,11 +106,10 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
             @Override
             public void onClick(View v) {
                 ingriedients.add(new Pair(2.137, productModel));
-                Toast.makeText(getApplicationContext(), productModel.getName()+" added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), productModel.getName() + " added", Toast.LENGTH_SHORT).show();
                 popupWindow.dismiss();
             }
         });
-
 
 
         // dismiss the popup window when touched
@@ -172,6 +162,8 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
     }
 
     private void setActionBar() {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.add_meal_toolbar);
+        setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Friends");
 

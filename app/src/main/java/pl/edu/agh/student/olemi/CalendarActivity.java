@@ -11,11 +11,11 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import pl.edu.agh.student.olemi.pl.edu.agh.student.olemi.model.entities.Nutrients;
-import pl.edu.agh.student.olemi.pl.edu.agh.student.olemi.model.entities.NutrientsBuilder;
-import pl.edu.agh.student.olemi.pl.edu.agh.student.olemi.model.repositories.NoDbProductRepository;
-import pl.edu.agh.student.olemi.pl.edu.agh.student.olemi.model.repositories.ProductRepository;
-import pl.edu.agh.student.olemi.pl.edu.agh.student.olemi.model.sampledata.ExampleData;
+import pl.edu.agh.student.olemi.entities.Nutrients;
+import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
+import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
+import pl.edu.agh.student.olemi.repositories.ProductRepository;
+import pl.edu.agh.student.olemi.sampledata.ExampleData;
 
 public class CalendarActivity extends AppCompatActivity {
 

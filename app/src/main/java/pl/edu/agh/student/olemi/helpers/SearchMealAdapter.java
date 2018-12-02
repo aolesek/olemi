@@ -15,7 +15,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import pl.edu.agh.student.olemi.R;
-import pl.edu.agh.student.olemi.model.ProductModel;
+import pl.edu.agh.student.olemi.model_maciek.ProductModel;
 
 public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Filterable {
 
