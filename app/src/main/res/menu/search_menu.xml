@@ -4,10 +4,15 @@
     xmlns:tools="http://schemas.android.com/toolsschemas.android.com/tools"
     tools:context="com.example.sample.YourActivity"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/search"
+    <item
+        android:id="@+id/added_button"
+        android:title="Added"
+        yourapp:showAsAction="always" />
+    <item
+        android:id="@+id/search"
         android:title="Search"
         android:icon="@drawable/ic_action_name"
-
         yourapp:showAsAction="collapseActionView|ifRoom"
         yourapp:actionViewClass="android.widget.SearchView" />
+
 </menu>
