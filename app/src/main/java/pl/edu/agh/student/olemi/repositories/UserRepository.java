@@ -16,6 +16,8 @@ public interface UserRepository {
 
     Completable insertMeal(MealModel mealModel);
 
+    Completable insertUserData(UserDataModel userDataModel);
+
     Flowable<List<MealModel>> getMeals(Calendar day);
 
     Flowable<List<MealModel>> getMealsForLastDays(int numberOfDays);

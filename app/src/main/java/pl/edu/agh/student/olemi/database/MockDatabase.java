@@ -18,7 +18,7 @@ public class MockDatabase {
 
     public final ListMultimap<Calendar, MealModel> meals = ArrayListMultimap.create();
 
-    public final UserDataModel userData = new UserDataModel();
+    public UserDataModel userData = new UserDataModel();
 
     private static final MockDatabase instance = new MockDatabase();
 

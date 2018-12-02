@@ -10,13 +10,13 @@ public class UserDataModel {
 
     private Integer fatGoal;
 
-    private Double weight;
+    private Integer weight;
 
-    private Double age;
+    private Integer age;
 
     private String gender;
 
-    private Double height;
+    private Integer height;
 
     private Integer activityLevel; //1-4
 
@@ -52,19 +52,19 @@ public class UserDataModel {
         this.fatGoal = fatGoal;
     }
 
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public Double getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(Double age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -76,11 +76,11 @@ public class UserDataModel {
         this.gender = gender;
     }
 
-    public Double getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(Double height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
@@ -91,4 +91,5 @@ public class UserDataModel {
     public void setActivityLevel(Integer activityLevel) {
         this.activityLevel = activityLevel;
     }
+
 }
