@@ -29,6 +29,10 @@ public class ComplexProductModel implements ProductModel {
         this.ingredients = ingredients;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void addIngredient(IngredientModel ingredient) {
         ingredients.add(ingredient);
     }

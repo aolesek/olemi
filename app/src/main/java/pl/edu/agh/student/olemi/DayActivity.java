@@ -24,6 +24,7 @@ import pl.edu.agh.student.olemi.helpers.MealAdapter;
 import pl.edu.agh.student.olemi.model_maciek.Nutrients;
 import pl.edu.agh.student.olemi.model_maciek.ProductModel;
 import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
+import pl.edu.agh.student.olemi.models.MealModel;
 import pl.edu.agh.student.olemi.models.SimpleProductModel;
 import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
 
@@ -42,15 +43,11 @@ public class DayActivity extends AppCompatActivity {
 
         initRepo();
 
-
-//        List<ProductModel> productModels = new ArrayList<>();
-//        productModels.add(new SimpleProduct("jajko", new Nutrients(2.137, 2.137, 2.137, 2.137)));
-//        productModels.add(new SimpleProduct("bożena", new Nutrients(2.137, 2.137, 2.137, 2.137)));
 //
-        List<pl.edu.agh.student.olemi.models.ProductModel> productModels = new ArrayList<>();
+        List<MealModel> productModels = new ArrayList<>();
 
-        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
-        npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
+//        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
+//        npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
 
         mealAdapter = new MealAdapter(this, productModels);
         ListView listView = findViewById(R.id.list21);

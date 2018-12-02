@@ -15,16 +15,17 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import pl.edu.agh.student.olemi.R;
+import pl.edu.agh.student.olemi.models.IngredientModel;
 import pl.edu.agh.student.olemi.models.ProductModel;
 
-public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Filterable {
+public class AddedProductsAdapter extends ArrayAdapter<IngredientModel> implements Filterable {
 
     private Context mContext;
-    private List<ProductModel> mealList;
+    private List<IngredientModel> mealList;
     private MealFilter mealFilter;
-    private List<ProductModel> filteredList;
+    private List<IngredientModel> filteredList;
 
-    public SearchMealAdapter(@NonNull Context context, List<ProductModel> list) {
+    public AddedProductsAdapter(@NonNull Context context, List<IngredientModel> list) {
         super(context, 0, list);
         this.mContext = context;
         this.mealList = list;
@@ -51,7 +52,7 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
      * @return list item
      */
     @Override
-    public ProductModel getItem(int i) {
+    public IngredientModel getItem(int i) {
         return filteredList.get(i);
     }
 
@@ -73,10 +74,10 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.search_list_item,parent,false);
 
-        ProductModel productModel = mealList.get(position);
+        IngredientModel productModel = mealList.get(position);
 
         TextView list_search_name = (TextView) listItem.findViewById(R.id.list_search_name);
-        list_search_name.setText(productModel.getName());
+        list_search_name.setText(productModel.getProduct().getName());
 
         return listItem;
     }
@@ -95,11 +96,11 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults filterResults = new FilterResults();
             if (constraint!=null && constraint.length()>0) {
-                ArrayList<ProductModel> tempList = new ArrayList<ProductModel>();
+                ArrayList<IngredientModel> tempList = new ArrayList<IngredientModel>();
 
                 // search content in friend list
-                for (ProductModel productModel : mealList) {
-                    if (productModel.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                for (IngredientModel productModel : mealList) {
+                    if (productModel.getProduct().getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         tempList.add(productModel);
                     }
                 }
@@ -122,7 +123,7 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredList = (List<ProductModel>) results.values;
+            filteredList = (List<IngredientModel>) results.values;
             clear();
             addAll(filteredList);
             notifyDataSetChanged();

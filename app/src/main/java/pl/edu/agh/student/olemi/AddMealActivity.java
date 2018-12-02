@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -27,11 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
+import pl.edu.agh.student.olemi.helpers.HoldInfo;
 import pl.edu.agh.student.olemi.helpers.SearchMealAdapter;
-import pl.edu.agh.student.olemi.model_maciek.Nutrients;
 import pl.edu.agh.student.olemi.model_maciek.Pair;
+import pl.edu.agh.student.olemi.models.IngredientModel;
 import pl.edu.agh.student.olemi.models.ProductModel;
-import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
 import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
 
 public class AddMealActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
@@ -41,8 +42,9 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
     private MenuItem searchMenuItem;
     private MenuItem addedMenuItem;
     private SearchMealAdapter mealAdapter;
-    private List<ProductModel> productModels;
-    private ArrayList<Pair> ingriedients = new ArrayList<>();
+    List<ProductModel> productModels;
+    HoldInfo holdInfo = HoldInfo.getInstance();
+    List<IngredientModel> ingredientModelList = new ArrayList<>();
 
 
     @Override
@@ -55,7 +57,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
     }
 
     public void initList() {
-        List<ProductModel> productModels = new ArrayList<>();
+        productModels = new ArrayList<>();
 
         NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
         npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
@@ -108,7 +110,10 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ingriedients.add(new Pair(2.137, productModel));
+                EditText editText = contentView.findViewById(R.id.editText2);
+                Double d = Double.parseDouble(editText.getText().toString());
+                IngredientModel ingredientModel = new IngredientModel(d, productModel);
+                holdInfo.getIngredientModelList().add(ingredientModel);
                 Toast.makeText(getApplicationContext(), productModel.getName() + " added", Toast.LENGTH_SHORT).show();
                 popupWindow.dismiss();
             }

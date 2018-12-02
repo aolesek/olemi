@@ -107,6 +107,7 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
                 filterResults.count = tempList.size();
                 filterResults.values = tempList;
             } else {
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
                 filterResults.count = mealList.size();
                 filterResults.values = mealList;
             }
