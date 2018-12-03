@@ -100,7 +100,7 @@ public class ExampleData {
         for (int i = 0; i < 30; i++) {
             int numberOfMeals = r.nextInt(5) + 1;
             Calendar day = Calendar.getInstance();
-            day.add(Calendar.DATE, i);
+            day.add(Calendar.DATE, -i);
             for (int j = 0; j < numberOfMeals; j++) {
                 double weight = (r.nextInt(500) + 100);
                 meals.put(day, new MealModel(day, getRandomProduct(), weight));

@@ -16,7 +16,7 @@ public class MockDatabase {
 
     public final List<ProductModel> availableProducts = new ArrayList<>();
 
-    public final ListMultimap<Calendar, MealModel> meals = ArrayListMultimap.create();
+    public final ListMultimap<String, MealModel> meals = ArrayListMultimap.create();
 
     public UserDataModel userData = new UserDataModel();
 
