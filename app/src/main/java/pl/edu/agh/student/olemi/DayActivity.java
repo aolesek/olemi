@@ -1,10 +1,11 @@
 package pl.edu.agh.student.olemi;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,22 +18,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
 import pl.edu.agh.student.olemi.helpers.MealAdapter;
-import pl.edu.agh.student.olemi.logging.DebugLogTree;
-import pl.edu.agh.student.olemi.model_maciek.Nutrients;
-import pl.edu.agh.student.olemi.model_maciek.ProductModel;
-import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
 import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
 import pl.edu.agh.student.olemi.repositories.ProductRepository;
 import pl.edu.agh.student.olemi.repositories.UserRepository;
-import pl.edu.agh.student.olemi.sampledata.ExampleData;
 import timber.log.Timber;
 import pl.edu.agh.student.olemi.models.MealModel;
 import pl.edu.agh.student.olemi.models.SimpleProductModel;
 import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
+
+import static pl.edu.agh.student.olemi.utils.DateTimeUtils.*;
 
 public class DayActivity extends AppCompatActivity {
 
@@ -44,36 +43,26 @@ public class DayActivity extends AppCompatActivity {
 
     private ProductRepository productRepository;
 
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
 
-        Timber.plant(new DebugLogTree());
-
-        userRepository = new NoDbUserRepository(getApplicationContext());
-        productRepository = new NoDbProductRepository(getApplicationContext());
-        createExampleData();
-
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(SELECTED_DAY);
-        Toast wtfToast = Toast.makeText(getApplicationContext(), "day: " + message, Toast.LENGTH_SHORT);
-        wtfToast.show();
-
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.day_toolbar);
         setSupportActionBar(myChildToolbar);
 
+        userRepository = new NoDbUserRepository(getApplicationContext());
+        productRepository = new NoDbProductRepository(getApplicationContext());
+
         initRepo();
 
-//
         List<MealModel> productModels = new ArrayList<>();
 
-//        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
-//        npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
+        listView = findViewById(R.id.list21);
 
-        mealAdapter = new MealAdapter(this, productModels);
-        ListView listView = findViewById(R.id.list21);
-        listView.setAdapter(mealAdapter);
+        fetchMeals();
 
         TextView allCalories = findViewById(R.id.allCalories);
         TextView allNutrients = findViewById(R.id.allNutrients);
@@ -89,6 +78,25 @@ public class DayActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @SuppressLint("CheckResult")
+    public void fetchMeals() {
+        final Intent intent = getIntent();
+        final String message = Objects.nonNull(intent.getStringExtra(SELECTED_DAY))
+                ? intent.getStringExtra(SELECTED_DAY)
+                : calendarDateToString(Calendar.getInstance());
+
+        Timber.i("Fetching meals for " + message);
+
+        userRepository.getMeals(message).subscribe(meals -> {
+            final MealAdapter mealAdapter = new MealAdapter(getApplicationContext(), meals);
+
+            DayActivity.this.listView.post(() -> {
+                ListView lV = findViewById(R.id.list21);
+                lV.setAdapter(mealAdapter);
+            });
+        });
     }
 
     public void initRepo() {
@@ -131,10 +139,5 @@ public class DayActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void createExampleData() {
-        final ExampleData exampleData = new ExampleData(getApplicationContext());
-        exampleData.persistGeneratedData(productRepository, userRepository);
     }
 }

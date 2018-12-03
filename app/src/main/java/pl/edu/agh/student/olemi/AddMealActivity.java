@@ -173,7 +173,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
         Toolbar myToolbar = (Toolbar) findViewById(R.id.add_meal_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Friends");
+        getSupportActionBar().setTitle("Products");
 
 //        Typeface typeface = Typeface..createFromAsset(this.getAssets(), "fonts/vegur_2.otf");
 //        int titleId = getResources().getIdentifier("action_bar_title", "id", "android");

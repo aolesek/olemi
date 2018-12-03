@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -103,5 +105,26 @@ public class CalendarActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.calendar_actions_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.calendar_action_goals:
+                Intent intent = new Intent(this, GoalSettings.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.calendar_action_stats:
+                Toast wtfToast = Toast.makeText(getApplicationContext(), "not supported yet", Toast.LENGTH_SHORT);
+                wtfToast.show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

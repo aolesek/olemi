@@ -15,9 +15,10 @@ import pl.edu.agh.student.olemi.models.SimpleProductModel;
 
 public class NoDbProductRepository implements ProductRepository {
 
-    MockDatabase mockDatabase = MockDatabase.getInstance();
+    final MockDatabase mockDatabase;
 
     public NoDbProductRepository(Context context) {
+        this.mockDatabase= MockDatabase.getInstance(context);
     }
 
     @Override
