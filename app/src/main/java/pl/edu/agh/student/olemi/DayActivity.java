@@ -25,6 +25,10 @@ import pl.edu.agh.student.olemi.logging.DebugLogTree;
 import pl.edu.agh.student.olemi.model_maciek.Nutrients;
 import pl.edu.agh.student.olemi.model_maciek.ProductModel;
 import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
+import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
+import pl.edu.agh.student.olemi.repositories.ProductRepository;
+import pl.edu.agh.student.olemi.repositories.UserRepository;
+import pl.edu.agh.student.olemi.sampledata.ExampleData;
 import timber.log.Timber;
 import pl.edu.agh.student.olemi.models.MealModel;
 import pl.edu.agh.student.olemi.models.SimpleProductModel;
@@ -33,7 +37,12 @@ import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
 public class DayActivity extends AppCompatActivity {
 
     MealAdapter mealAdapter;
+
     public static final String SELECTED_DAY = "pl.edu.agh.student.olemi.day.SELECTED_DAY";
+
+    private UserRepository userRepository;
+
+    private ProductRepository productRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,15 @@ public class DayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_day);
 
         Timber.plant(new DebugLogTree());
+
+        userRepository = new NoDbUserRepository(getApplicationContext());
+        productRepository = new NoDbProductRepository(getApplicationContext());
+        createExampleData();
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(SELECTED_DAY);
+        Toast wtfToast = Toast.makeText(getApplicationContext(), "day: " + message, Toast.LENGTH_SHORT);
+        wtfToast.show();
 
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.day_toolbar);
         setSupportActionBar(myChildToolbar);
@@ -73,7 +91,7 @@ public class DayActivity extends AppCompatActivity {
 
     }
 
-    public void initRepo(){
+    public void initRepo() {
         NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
         pl.edu.agh.student.olemi.entities.Nutrients nutrients = NutrientsBuilder.aNutrients()
                 .withCalories(100)
@@ -113,5 +131,10 @@ public class DayActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void createExampleData() {
+        final ExampleData exampleData = new ExampleData(getApplicationContext());
+        exampleData.persistGeneratedData(productRepository, userRepository);
     }
 }

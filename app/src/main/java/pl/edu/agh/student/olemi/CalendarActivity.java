@@ -48,7 +48,6 @@ public class CalendarActivity extends AppCompatActivity {
 
         userRepository = new NoDbUserRepository(getApplicationContext());
         productRepository = new NoDbProductRepository(getApplicationContext());
-        createExampleData();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.calendar_toolbar);
         setSupportActionBar(myToolbar);
@@ -67,11 +66,6 @@ public class CalendarActivity extends AppCompatActivity {
             intent.putExtra(DayActivity.SELECTED_DAY, calendarDateToString(clickedDayCalendar));
             startActivity(intent);
         });
-    }
-
-    private void createExampleData() {
-        final ExampleData exampleData = new ExampleData(getApplicationContext());
-        exampleData.persistGeneratedData(productRepository, userRepository);
     }
 
     private void fillEvents() {
