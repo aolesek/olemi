@@ -4,4 +4,5 @@
     <string name="action_calendar">Calendar</string>
     <string name="calendar_action_stats">Stats</string>
     <string name="calendar_action_user_settings">Goals</string>
+    <string name="goal_action_calculate">Calculate goal</string>
 </resources>

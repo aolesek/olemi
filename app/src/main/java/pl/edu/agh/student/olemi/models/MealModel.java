@@ -2,6 +2,8 @@ package pl.edu.agh.student.olemi.models;
 
 import android.icu.util.Calendar;
 
+import java.util.Objects;
+
 import pl.edu.agh.student.olemi.entities.Product;
 
 public class MealModel {
@@ -13,6 +15,8 @@ public class MealModel {
     public MealModel(Calendar day, ProductModel product, Double weight) {
         this.day = day;
         this.product = product;
+        this.product.getNutrients();
+        Objects.nonNull(null);
         this.weight = weight;
     }
 

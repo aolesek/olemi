@@ -24,9 +24,11 @@ import static pl.edu.agh.student.olemi.utils.DateTimeUtils.clearCalendar;
 
 public class NoDbUserRepository implements UserRepository {
 
-    MockDatabase mockDatabase = MockDatabase.getInstance();
+    final MockDatabase mockDatabase;
 
-    public NoDbUserRepository(Context context) {}
+    public NoDbUserRepository(Context context) {
+        this.mockDatabase = MockDatabase.getInstance(context);
+    }
 
     @Override
     public Completable insertMeal(MealModel mealModel) {
