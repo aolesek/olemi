@@ -20,6 +20,8 @@ public interface UserRepository {
 
     Flowable<List<MealModel>> getMeals(Calendar day);
 
+    Flowable<List<MealModel>> getMeals(String dayTimestamp);
+
     Flowable<List<MealModel>> getMealsForLastDays(int numberOfDays);
 
     Single<UserDataModel> getUserData();

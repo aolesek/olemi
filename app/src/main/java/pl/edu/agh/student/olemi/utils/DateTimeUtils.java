@@ -4,7 +4,7 @@ import android.icu.util.Calendar;
 
 public class DateTimeUtils {
 
-    public static String STRING_DATE_SEPARATOR = ";";
+    public static String STRING_DATE_SEPARATOR = "-";
 
     public static java.util.Calendar toJavaCalendar(Calendar calendar) {
         java.util.Calendar instance = java.util.Calendar.getInstance();

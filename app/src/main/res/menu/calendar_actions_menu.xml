@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/calendar_action_goals"
+        android:icon="@drawable/user_settings_icon"
+        android:title="@string/calendar_action_user_settings"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/calendar_action_stats"
+        android:icon="@drawable/chart_icon"
+        android:title="@string/calendar_action_stats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/day_action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>
