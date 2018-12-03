@@ -3,6 +3,7 @@ package pl.edu.agh.student.olemi;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -47,10 +48,10 @@ public class CalendarActivity extends AppCompatActivity {
 
         userRepository = new NoDbUserRepository(getApplicationContext());
         productRepository = new NoDbProductRepository(getApplicationContext());
-        createExampleData();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.calendar_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -65,11 +66,6 @@ public class CalendarActivity extends AppCompatActivity {
             intent.putExtra(DayActivity.SELECTED_DAY, calendarDateToString(clickedDayCalendar));
             startActivity(intent);
         });
-    }
-
-    private void createExampleData() {
-        final ExampleData exampleData = new ExampleData(getApplicationContext());
-        exampleData.persistGeneratedData(productRepository, userRepository);
     }
 
     private void fillEvents() {
@@ -101,5 +97,11 @@ public class CalendarActivity extends AppCompatActivity {
         else if (diff < Constants.GOAL_NEAR_THRESHOLD) return R.drawable.goal_near;
         else if (diff < Constants.GOAL_INSUFFICIENT_THRESHOLD) return R.drawable.goal_insufficient;
         else return null;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.calendar_actions_menu, menu);
+        return true;
     }
 }

@@ -45,6 +45,12 @@ public class NoDbUserRepository implements UserRepository {
     }
 
     @Override
+    public Flowable<List<MealModel>> getMeals(String dayTimestamp) {
+        final Collection<MealModel> mealModels = mockDatabase.meals.get(dayTimestamp);
+        return Flowable.just(new ArrayList<>(mealModels));
+    }
+
+    @Override
     public Flowable<List<MealModel>> getMealsForLastDays(int numberOfDays) {
         final List<MealModel> filteredMeals = new ArrayList<>();
         IntStream.range(0, numberOfDays).forEach(dayNumber -> {
