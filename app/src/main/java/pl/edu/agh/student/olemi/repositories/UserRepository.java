@@ -26,6 +26,8 @@ public interface UserRepository {
 
     Single<UserDataModel> getUserData();
 
+    Completable setUserData(UserDataModel userData);
+
     Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(Calendar day);
 
     Single<Pair<Integer, Integer>> getCaloriesGoalStats(Calendar day);

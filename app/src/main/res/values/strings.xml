@@ -5,4 +5,24 @@
     <string name="calendar_action_stats">Stats</string>
     <string name="calendar_action_user_settings">Goals</string>
     <string name="goal_action_calculate">Calculate goal</string>
+    <string name="goal_title">Goals and measurements</string>
+    <string name="goal_age_hint">years</string>
+    <string name="goals_age">Age</string>
+    <string name="goals_weight">Weight</string>
+    <string name="goals_weight_hing">kilograms</string>
+    <string name="goals_height">Height</string>
+    <string name="goals_height_value">centimeters</string>
+    <string name="goals_activity_level_header">Activity level</string>
+    <string name="goals_activity_level">Activity level</string>
+    <string name="goals_daily_calorie">Daily calorie goal: %d kcal</string>
+    <string name="goals_carbs">Daily carbonhydrates goal: %d g</string>
+    <string name="goals_proteins">Daily proteins goal: %d g</string>
+    <string name="goals_fats">Daily fats goal: %d g</string>
+    <string name="goals_age_hint">years</string>
+    <string name="goals_gender">Gender</string>
+    <string name="goalsTitle">Goals</string>
+    <string name="goalsWeightRatioHeader">Weight loss per week</string>
+    <string name="goalsUserDataUpdated">User data updated. New goals calorie: %d, proteins: %d, fats: %d, carbohydrates: %d</string>
+    <string name="goalsUserDataError">The entered data is incorrect</string>
+
 </resources>

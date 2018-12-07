@@ -6,54 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".GoalSettings">
 
-    <EditText
-        android:id="@+id/editText8"
-        android:layout_width="129dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="male"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="129dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="180"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="129dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="3"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="129dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="21"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/goal_settings_toolbar"
         android:layout_width="match_parent"
@@ -63,87 +15,200 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="0dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="8dp"
-        android:text="Goals and measurements"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/goal_settings_toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goal_settings_toolbar">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="41dp"
-        android:layout_marginTop="22dp"
-        android:text="Weight"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/goal_title"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Age"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Gender"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Height"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Activity level"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                <TextView
+                    android:id="@+id/goalsAgeHeader"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goals_age" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:text="Daily calorie goal: 2400 kcal"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:layout_editor_absoluteX="22dp" />
+                <EditText
+                    android:id="@+id/goalsAgeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/goals_age_hint"
+                    android:inputType="numberDecimal" />
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="129dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="80"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/goalsWeightHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goals_weight" />
+
+                <EditText
+                    android:id="@+id/goalsWeightValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/goals_weight_hing"
+                    android:inputType="numberDecimal" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/goalsHeightHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goals_height" />
+
+                <EditText
+                    android:id="@+id/goalsHeightValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/goals_height_value"
+                    android:inputType="numberDecimal" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/goalsActivityHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goals_activity_level_header" />
+
+                <Spinner
+                    android:id="@+id/goalsActivitySpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/goalsActivityLevels"
+                    android:spinnerMode="dialog" />
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/goalsWeightLossHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goalsWeightRatioHeader" />
+
+                <Spinner
+                    android:id="@+id/goalsWeightLossSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/weightLossLevels"
+                    android:spinnerMode="dialog" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/goalsGenderHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goals_gender" />
+
+                <Spinner
+                    android:id="@+id/goalsGenderSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:entries="@array/goalsGenders"
+                    android:paddingEnd="20dp" />
+
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/goalsCalorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_daily_calorie" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/goalsCarbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_carbs" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/goalsProteins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_proteins" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/goalsFats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goals_fats" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

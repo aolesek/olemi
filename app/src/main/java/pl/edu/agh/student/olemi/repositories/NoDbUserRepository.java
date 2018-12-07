@@ -71,6 +71,11 @@ public class NoDbUserRepository implements UserRepository {
     }
 
     @Override
+    public Completable setUserData(UserDataModel userData) {
+        return Completable.fromRunnable(() -> mockDatabase.userData = userData);
+    }
+
+    @Override
     public Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(Calendar day) {
         clearCalendar(day);
         final Set<Nutrients> allDayNutrients = mockDatabase.meals.get(calendarDateToString(day)).stream()
