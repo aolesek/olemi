@@ -27,7 +27,7 @@ public class MockDatabase {
 
     public final ListMultimap<String, MealModel> meals = ArrayListMultimap.create();
 
-    public UserDataModel userData = new UserDataModel();
+    public UserDataModel userData;
 
     private static MockDatabase instance = null;
 

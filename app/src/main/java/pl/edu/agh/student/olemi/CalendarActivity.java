@@ -53,7 +53,6 @@ public class CalendarActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.calendar_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.calendarView = (CalendarView) findViewById(R.id.calendarView);
 

@@ -32,7 +32,7 @@ public class ExampleData {
 
     private final ListMultimap<Calendar, MealModel> meals = ArrayListMultimap.create();
 
-    private final UserDataModel userData = new UserDataModel();
+    private final UserDataModel userData;
 
     private Context context;
 
@@ -40,7 +40,16 @@ public class ExampleData {
         this.context = context;
         generateSimpleProducts();
         generateComplexProducts();
-        generateUserData();
+
+        this.userData = UserDataModel.builder()
+                .age(21)
+                .activityLevel(2)
+                .weight(80)
+                .height(180)
+                .weightLossRate(0.5)
+                .gender("male").build();
+
+
         generateMeals();
     }
 
@@ -81,18 +90,6 @@ public class ExampleData {
         availableProducts.addAll(Arrays.asList(p1, p2, p3, p4));
     }
 
-    private void generateUserData() {
-        userData.setActivityLevel(2);
-        userData.setAge(21);
-        userData.setCaloriesGoal(2000);
-        userData.setFatGoal(200);
-        userData.setGender("male");
-        userData.setHeight(181);
-        userData.setProteinGoal(150);
-        userData.setCarbonhydrateGoal(300);
-        userData.setWeight(80);
-    }
-
     private void generateMeals() {
         Random r = new Random();
 
@@ -110,7 +107,7 @@ public class ExampleData {
 
     private ProductModel getRandomProduct() {
         Random r = new Random();
-        int productNumber = r.nextInt(availableProducts.size()-1);
+        int productNumber = r.nextInt(availableProducts.size() - 1);
         return availableProducts.get(productNumber);
     }
 
