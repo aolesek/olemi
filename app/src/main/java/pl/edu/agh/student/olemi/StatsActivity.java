@@ -1,12 +1,5 @@
 package pl.edu.agh.student.olemi;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.util.Pair;
-import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
-import pl.edu.agh.student.olemi.repositories.UserRepository;
-import timber.log.Timber;
-
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -19,7 +12,12 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.LinkedList;
 import java.util.List;
 
-import static pl.edu.agh.student.olemi.utils.DateTimeUtils.clearCalendar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.util.Pair;
+import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
+import pl.edu.agh.student.olemi.repositories.UserRepository;
+import timber.log.Timber;
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -86,8 +84,6 @@ public class StatsActivity extends AppCompatActivity {
     private String xToDay(int x, int numberOfDays) {
         final Calendar day = Calendar.getInstance();
         day.add(Calendar.DAY_OF_YEAR, -(numberOfDays - x - 1));
-        Timber.i("today - " + (numberOfDays - x - 1));
-        Timber.i("label for " + day.get(Calendar.DATE));
         return String.valueOf(day.get(Calendar.DATE));
     }
 }

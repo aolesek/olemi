@@ -1,20 +1,19 @@
 package pl.edu.agh.student.olemi;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.service.autofill.UserData;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.models.UserDataModel;
 import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
 import pl.edu.agh.student.olemi.repositories.UserRepository;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class GoalSettings extends AppCompatActivity {
 
@@ -31,29 +30,28 @@ public class GoalSettings extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.goalsTitle));
 
         this.userRepository = new NoDbUserRepository(getApplicationContext());
-        fillUserData();
+        userRepository.getUserData().subscribe(this::fillUserData);
     }
 
-    private void fillUserData() {
-        userRepository.getUserData().subscribe(userData -> {
-            ((TextView) findViewById(R.id.goalsAgeValue)).setText(String.valueOf(userData.getAge()));
-            ((Spinner) findViewById(R.id.goalsActivitySpinner)).setSelection(userData.getActivityLevel());
+    private void fillUserData(UserDataModel userData) {
 
-            final String male = this.getResources().getStringArray(R.array.goalsGenders)[0];
-            final int numberOnList = userData.getGender().equals(male) ? 0 : 1;
-            ((Spinner) findViewById(R.id.goalsGenderSpinner)).setSelection(numberOnList);
+        ((TextView) findViewById(R.id.goalsAgeValue)).setText(String.valueOf(userData.getAge()));
+        ((Spinner) findViewById(R.id.goalsActivitySpinner)).setSelection(userData.getActivityLevel());
 
-            ((TextView) findViewById(R.id.goalsHeightValue)).setText(String.valueOf(userData.getHeight()));
-            ((TextView) findViewById(R.id.goalsWeightValue)).setText(String.valueOf(userData.getWeight()));
+        final String male = this.getResources().getStringArray(R.array.goalsGenders)[0];
+        final int numberOnList = userData.getGender().equals(male) ? 0 : 1;
+        ((Spinner) findViewById(R.id.goalsGenderSpinner)).setSelection(numberOnList);
 
-            final int weightLossRateIndex = (int) (userData.getWeightLossRate() / 0.1 - 2);
-            ((Spinner) findViewById(R.id.goalsWeightLossSpinner)).setSelection(weightLossRateIndex);
+        ((TextView) findViewById(R.id.goalsHeightValue)).setText(String.valueOf(userData.getHeight()));
+        ((TextView) findViewById(R.id.goalsWeightValue)).setText(String.valueOf(userData.getWeight()));
 
-            ((TextView) findViewById(R.id.goalsCalorie)).setText(String.format(getString(R.string.goals_daily_calorie), userData.getCaloriesGoal()));
-            ((TextView) findViewById(R.id.goalsFats)).setText(String.format(getString(R.string.goals_fats), userData.getFatGoal()));
-            ((TextView) findViewById(R.id.goalsCarbs)).setText(String.format(getString(R.string.goals_carbs), userData.getCarbonhydrateGoal()));
-            ((TextView) findViewById(R.id.goalsProteins)).setText(String.format(getString(R.string.goals_proteins), userData.getProteinGoal()));
-        });
+        final int weightLossRateIndex = (int) (userData.getWeightLossRate() / 0.1 - 2);
+        ((Spinner) findViewById(R.id.goalsWeightLossSpinner)).setSelection(weightLossRateIndex);
+
+        ((TextView) findViewById(R.id.goalsCalorie)).setText(String.format(getString(R.string.goals_daily_calorie), userData.getCaloriesGoal()));
+        ((TextView) findViewById(R.id.goalsFats)).setText(String.format(getString(R.string.goals_fats), userData.getFatGoal()));
+        ((TextView) findViewById(R.id.goalsCarbs)).setText(String.format(getString(R.string.goals_carbs), userData.getCarbonhydrateGoal()));
+        ((TextView) findViewById(R.id.goalsProteins)).setText(String.format(getString(R.string.goals_proteins), userData.getProteinGoal()));
     }
 
     @Override
@@ -84,7 +82,7 @@ public class GoalSettings extends AppCompatActivity {
                                 userDataModel.getFatGoal(), userDataModel.getCarbonhydrateGoal());
                         Toast wtfToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
                         wtfToast.show();
-                        fillUserData();
+                        userRepository.getUserData().subscribe(this::fillUserData);
                     });
                 } catch (NumberFormatException e) {
                     Toast wtfToast = Toast.makeText(context, getString(R.string.goalsUserDataError), Toast.LENGTH_SHORT);

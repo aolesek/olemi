@@ -32,7 +32,9 @@
         <activity
             android:name=".GoalSettings"
             android:parentActivityName=".CalendarActivity" />
-        <activity android:name=".StatsActivity"></activity>
+        <activity
+            android:name=".StatsActivity"
+            android:parentActivityName=".CalendarActivity"></activity>
     </application>
 
 </manifest>
