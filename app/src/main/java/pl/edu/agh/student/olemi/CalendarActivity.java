@@ -115,8 +115,8 @@ public class CalendarActivity extends AppCompatActivity {
                 return true;
 
             case R.id.calendar_action_stats:
-                Toast wtfToast = Toast.makeText(getApplicationContext(), "not supported yet", Toast.LENGTH_SHORT);
-                wtfToast.show();
+                Intent statsIntent = new Intent(this, StatsActivity.class);
+                startActivity(statsIntent);
                 return true;
 
             default:
