@@ -34,11 +34,13 @@ public class Nutrients {
         this.fats += otherNutrients.fats;
     }
 
-    public void multiplyBy(Double factor) {
-        this.calories = (int) (factor * this.calories);
-        this.protein = (int) (factor * this.protein);
-        this.carbohydrates = (int) (factor * this.carbohydrates);
-        this.fats = (int) (factor * this.fats);
+    public Nutrients multiplyBy(Double factor) {
+        Nutrients nutrients = NutrientsBuilder.copyNutrients(this).build();
+        nutrients.calories = (int) (factor * this.calories);
+        nutrients.protein = (int) (factor * this.protein);
+        nutrients.carbohydrates = (int) (factor * this.carbohydrates);
+        nutrients.fats = (int) (factor * this.fats);
+        return nutrients;
     }
 
     public static Nutrients sumOf(Nutrients... nutrients) {

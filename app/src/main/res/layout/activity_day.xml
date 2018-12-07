@@ -8,11 +8,12 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="148dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="7dp"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,33 +21,32 @@
 
         <TextView
             android:id="@+id/allCalories"
-            android:layout_width="133dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="15dp"
             android:inputType="textPersonName"
+            android:padding="15dp"
             android:text="1200/2500 kcal" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="174dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toEndOf="@+id/linearLayout3">
 
         <TextView
             android:id="@+id/allNutrients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="15dp"
             android:inputType="textPersonName"
+            android:padding="15dp"
             android:text="W: 50g B: 15g T:32g" />
     </LinearLayout>
 
@@ -59,8 +59,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="1.0">
 
         <ListView
             android:id="@+id/list21"

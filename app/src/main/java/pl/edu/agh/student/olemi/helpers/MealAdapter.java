@@ -35,11 +35,12 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
 
     /**
      * Get size of user list
+     *
      * @return userList size
      */
     @Override
     public int getCount() {
-        if(filteredList != null)
+        if (filteredList != null)
             return filteredList.size();
         else
             return 0;
@@ -47,6 +48,7 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
 
     /**
      * Get specific item from user list
+     *
      * @param i item index
      * @return list item
      */
@@ -57,6 +59,7 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
 
     /**
      * Get user list item id
+     *
      * @param i item index
      * @return current item id
      */
@@ -68,27 +71,27 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+        if (listItem == null)
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
 
-        MealModel productModel = mealList.get(position);
+        MealModel mealModel = mealList.get(position);
 
         TextView list_meal_name = (TextView) listItem.findViewById(R.id.list_meal_name);
-        list_meal_name.setText(productModel.getProduct().getName());
+        list_meal_name.setText(mealModel.getName());
 
         TextView list_meal_info_carbs = (TextView) listItem.findViewById(R.id.list_meal_info_carbs);
-        list_meal_info_carbs.setText("C: "+productModel.getProduct().getNutrients().carbohydrates.toString());
+        list_meal_info_carbs.setText("C: " + mealModel.getNutrients().carbohydrates.toString());
 
         TextView list_meal_info_protein = (TextView) listItem.findViewById(R.id.list_meal_info_protein);
-        list_meal_info_protein.setText("P: "+productModel.getProduct().getNutrients().protein.toString());
+        list_meal_info_protein.setText("P: " + mealModel.getNutrients().protein.toString());
 
         TextView list_meal_info_fat = (TextView) listItem.findViewById(R.id.list_meal_info_fat);
-        list_meal_info_fat.setText("F: "+productModel.getProduct().getNutrients().fats.toString());
+        list_meal_info_fat.setText("F: " + mealModel.getNutrients().fats.toString());
 
         TextView list_meal_info_calories = (TextView) listItem.findViewById(R.id.list_meal_info_calories);
-        list_meal_info_calories.setText("Cal: "+productModel.getProduct().getNutrients().calories.toString());
+        list_meal_info_calories.setText("Cal: " + mealModel.getNutrients().calories.toString());
 
         return listItem;
     }
@@ -106,12 +109,12 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults filterResults = new FilterResults();
-            if (constraint!=null && constraint.length()>0) {
+            if (constraint != null && constraint.length() > 0) {
                 ArrayList<MealModel> tempList = new ArrayList<MealModel>();
 
                 // search content in friend list
                 for (MealModel productModel : mealList) {
-                    if (productModel.getProduct().getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                    if (productModel.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         tempList.add(productModel);
                     }
                 }
@@ -128,8 +131,9 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
 
         /**
          * Notify about filtered list to ui
+         *
          * @param constraint text
-         * @param results filtered result
+         * @param results    filtered result
          */
         @SuppressWarnings("unchecked")
         @Override

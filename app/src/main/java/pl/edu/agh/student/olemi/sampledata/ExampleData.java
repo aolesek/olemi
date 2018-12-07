@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
-import androidx.annotation.IntRange;
+import pl.edu.agh.student.olemi.entities.Nutrients;
 import pl.edu.agh.student.olemi.models.ComplexProductModel;
 import pl.edu.agh.student.olemi.models.IngredientModel;
 import pl.edu.agh.student.olemi.models.MealModel;
@@ -91,18 +91,38 @@ public class ExampleData {
     }
 
     private void generateMeals() {
-        Random r = new Random();
-
-
-        for (int i = 0; i < 30; i++) {
-            int numberOfMeals = r.nextInt(5) + 1;
+        for (int i = 0; i < 2; i++) {
             Calendar day = Calendar.getInstance();
             day.add(Calendar.DATE, -i);
-            for (int j = 0; j < numberOfMeals; j++) {
-                double weight = (r.nextInt(500) + 100);
-                meals.put(day, new MealModel(day, getRandomProduct(), weight));
-            }
+            generateMealsForSingleDay(day);
         }
+    }
+
+    private void generateMealsForSingleDay(Calendar day) {
+        Random r = new Random();
+
+        while (!isNearGoal(day)) {
+            double weight = (r.nextInt(100) + 200);
+            final MealModel mealModel = new MealModel(day, getRandomProduct(), weight);
+            meals.put(day, mealModel);
+
+        }
+    }
+
+    private boolean isNearGoal(Calendar day) {
+        final List<MealModel> mealModels = meals.get(day);
+        final List<Nutrients> allMealsNutrients = mealModels.stream()
+                .map(MealModel::getNutrients)
+                .collect(Collectors.toList());
+
+        final Nutrients sum = Nutrients.sumOf(allMealsNutrients.toArray(new Nutrients[0]));
+        if (Math.abs(sum.calories - userData.getCaloriesGoal()) < 300) {
+            return true;
+        }
+        if (sum.calories - userData.getCaloriesGoal() > 300) {
+            return true;
+        }
+        return false;
     }
 
     private ProductModel getRandomProduct() {

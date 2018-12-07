@@ -81,10 +81,7 @@ public class NoDbUserRepository implements UserRepository {
         clearCalendar(day);
         final Set<Nutrients> allDayNutrients = mockDatabase.meals.get(calendarDateToString(day)).stream()
                 .map(mealModel -> {
-                    final Nutrients nutrients = mealModel.getProduct().getNutrients();
-                    final Double weight = mealModel.getWeight();
-                    nutrients.multiplyBy(weight);
-                    return nutrients;
+                    return mealModel.getNutrients();
                 })
                 .collect(Collectors.toSet());
         final Nutrients sumOfNutrients = Nutrients.sumOf(allDayNutrients.toArray(new Nutrients[0]));

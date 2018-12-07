@@ -17,6 +17,15 @@ public final class NutrientsBuilder {
         return new NutrientsBuilder();
     }
 
+    public static NutrientsBuilder copyNutrients(Nutrients nutrients) {
+        final NutrientsBuilder nutrientsBuilder = new NutrientsBuilder();
+        nutrientsBuilder.calories = nutrients.calories;
+        nutrientsBuilder.carbohydrates = nutrients.carbohydrates;
+        nutrientsBuilder.fats = nutrients.fats;
+        nutrientsBuilder.protein = nutrients.protein;
+        return nutrientsBuilder;
+    }
+
     public NutrientsBuilder withCalories(Integer calories) {
         this.calories = calories;
         return this;
