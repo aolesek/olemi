@@ -35,13 +35,9 @@ import static pl.edu.agh.student.olemi.utils.DateTimeUtils.*;
 
 public class DayActivity extends AppCompatActivity {
 
-    MealAdapter mealAdapter;
-
     public static final String SELECTED_DAY = "pl.edu.agh.student.olemi.day.SELECTED_DAY";
 
     private UserRepository userRepository;
-
-    private ProductRepository productRepository;
 
     private ListView listView;
 
@@ -54,7 +50,6 @@ public class DayActivity extends AppCompatActivity {
         setSupportActionBar(myChildToolbar);
 
         userRepository = new NoDbUserRepository(getApplicationContext());
-        productRepository = new NoDbProductRepository(getApplicationContext());
 
         initRepo();
 

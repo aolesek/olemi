@@ -5,11 +5,9 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +23,7 @@ import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
 import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
 import pl.edu.agh.student.olemi.repositories.ProductRepository;
 import pl.edu.agh.student.olemi.repositories.UserRepository;
-import pl.edu.agh.student.olemi.sampledata.ExampleData;
 import pl.edu.agh.student.olemi.utils.Constants;
-import timber.log.Timber;
 
 import static pl.edu.agh.student.olemi.utils.DateTimeUtils.calendarDateToString;
 import static pl.edu.agh.student.olemi.utils.DateTimeUtils.toAndroidCalendar;
@@ -36,8 +32,6 @@ import static pl.edu.agh.student.olemi.utils.DateTimeUtils.toJavaCalendar;
 public class CalendarActivity extends AppCompatActivity {
 
     private UserRepository userRepository;
-
-    private ProductRepository productRepository;
 
     private CalendarView calendarView;
 
@@ -49,7 +43,6 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         userRepository = new NoDbUserRepository(getApplicationContext());
-        productRepository = new NoDbProductRepository(getApplicationContext());
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.calendar_toolbar);
         setSupportActionBar(myToolbar);
@@ -113,17 +106,12 @@ public class CalendarActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, GoalSettings.class);
                 startActivity(intent);
                 return true;
-
             case R.id.calendar_action_stats:
-                Toast wtfToast = Toast.makeText(getApplicationContext(), "not supported yet", Toast.LENGTH_SHORT);
-                wtfToast.show();
+                Intent statsIntent = new Intent(this, StatsActivity.class);
+                startActivity(statsIntent);
                 return true;
-
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
 }

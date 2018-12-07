@@ -5,6 +5,7 @@ import android.icu.util.Calendar;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -95,5 +96,21 @@ public class NoDbUserRepository implements UserRepository {
         clearCalendar(day);
         return getFullGoalStats(day).map(
                 dataWithNutrients -> Pair.create(dataWithNutrients.first.calories, dataWithNutrients.second.getCaloriesGoal()));
+    }
+
+    @Override
+    public Single<List<Pair<Integer, Integer>>> getCaloriesGoalStats(int numberOfDays) {
+        final List<Calendar> days = new LinkedList<>();
+        IntStream.range(0, numberOfDays).forEach(dayNumber -> {
+            final Calendar day = Calendar.getInstance();
+            day.add(Calendar.DAY_OF_YEAR, -dayNumber);
+            clearCalendar(day);
+            days.add(day);
+        });
+
+        final Single<List<Pair<Integer, Integer>>> results = Flowable.fromIterable(days)
+                .flatMapSingle(this::getCaloriesGoalStats)
+                .toList();
+        return results;
     }
 }

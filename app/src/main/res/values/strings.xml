@@ -24,5 +24,11 @@
     <string name="goalsWeightRatioHeader">Weight loss per week</string>
     <string name="goalsUserDataUpdated">User data updated. New goals calorie: %d, proteins: %d, fats: %d, carbohydrates: %d</string>
     <string name="goalsUserDataError">The entered data is incorrect</string>
+    <string name="statsLastWeekTitle">Last 7 days</string>
+    <string name="statsWeekCaloriesTotal">Total calories %d / %d kcal</string>
+    <string name="statsWeekCaloriesDaily">Calories daily %d / %d kcal</string>
+    <string name="statsWeekCaloriesVariation">Deviation %d kcal</string>
+    <string name="stats_last_month_title">Last 21 days</string>
+    <string name="stats_title">Stats</string>
 
 </resources>
