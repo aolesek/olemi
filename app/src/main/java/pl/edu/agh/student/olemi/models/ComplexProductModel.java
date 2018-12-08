@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.student.olemi.entities.Nutrients;
+import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
 import pl.edu.agh.student.olemi.model_maciek.ComplexProduct;
 
 public class ComplexProductModel implements ProductModel {
@@ -28,9 +29,9 @@ public class ComplexProductModel implements ProductModel {
         final List<Nutrients> allNutrients = new LinkedList<>();
         ingredients.forEach(ingredient -> {
             Double partOfTotalWeight = ingredient.getPartOfTotalWeight();
-            Nutrients nutrients = ingredient.getProduct().getNutrients();
-            nutrients.multiplyBy(partOfTotalWeight);
-            allNutrients.add(nutrients);
+            Nutrients nutrients = NutrientsBuilder.copyNutrients(ingredient.getProduct().getNutrients()).build();
+            final Nutrients multiplied = nutrients.multiplyBy(partOfTotalWeight);
+            allNutrients.add(multiplied);
         });
         return Nutrients.sumOf(allNutrients.toArray(new Nutrients[0]));
     }

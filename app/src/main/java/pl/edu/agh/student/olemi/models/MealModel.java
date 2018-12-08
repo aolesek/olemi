@@ -4,6 +4,8 @@ import android.icu.util.Calendar;
 
 import java.util.Objects;
 
+import pl.edu.agh.student.olemi.entities.Nutrients;
+import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
 import pl.edu.agh.student.olemi.entities.Product;
 
 public class MealModel {
@@ -20,11 +22,15 @@ public class MealModel {
         this.weight = weight;
     }
 
-    public ProductModel getProduct() {
+    public String getName() {
+        return getProduct().getName();
+    }
+
+    ProductModel getProduct() {
         return product;
     }
 
-    public void setProduct(ProductModel product) {
+    void setProduct(ProductModel product) {
         this.product = product;
     }
 
@@ -42,5 +48,10 @@ public class MealModel {
 
     public void setDay(Calendar day) {
         this.day = day;
+    }
+
+    public Nutrients getNutrients() {
+        final Nutrients nutrients = product.getNutrients().multiplyBy(weight / 100);
+        return nutrients;
     }
 }
