@@ -62,7 +62,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
         NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
         npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
 
-        mealAdapter = new SearchMealAdapter(this, productModels);
+        mealAdapter = new SearchMealAdapter(this, R.layout.search_list_item, productModels);
         final ListView listView = findViewById(R.id.list_new_meal_search);
         listView.setAdapter(mealAdapter);
 
