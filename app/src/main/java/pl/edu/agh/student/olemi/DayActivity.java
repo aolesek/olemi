@@ -97,10 +97,10 @@ public class DayActivity extends AppCompatActivity {
     public void initRepo() {
         NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
         pl.edu.agh.student.olemi.entities.Nutrients nutrients = NutrientsBuilder.aNutrients()
-                .withCalories(100)
-                .withCarbohydrates(12)
-                .withFats(34)
-                .withProtein(14)
+                .withCalories(100d)
+                .withCarbohydrates(12d)
+                .withFats(34d)
+                .withProtein(14d)
                 .build();
         SimpleProductModel sp = new SimpleProductModel("maryna", nutrients);
         SimpleProductModel sp2 = new SimpleProductModel("kasztan", nutrients);

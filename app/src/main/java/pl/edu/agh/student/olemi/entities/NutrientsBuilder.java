@@ -2,13 +2,13 @@ package pl.edu.agh.student.olemi.entities;
 
 public final class NutrientsBuilder {
 
-    public Integer calories;
+    public Double calories;
 
-    public Integer protein;
+    public Double protein;
 
-    public Integer carbohydrates;
+    public Double carbohydrates;
 
-    public Integer fats;
+    public Double fats;
 
     private NutrientsBuilder() {
     }
@@ -26,22 +26,22 @@ public final class NutrientsBuilder {
         return nutrientsBuilder;
     }
 
-    public NutrientsBuilder withCalories(Integer calories) {
+    public NutrientsBuilder withCalories(Double calories) {
         this.calories = calories;
         return this;
     }
 
-    public NutrientsBuilder withProtein(Integer protein) {
+    public NutrientsBuilder withProtein(Double protein) {
         this.protein = protein;
         return this;
     }
 
-    public NutrientsBuilder withCarbohydrates(Integer carbohydrates) {
+    public NutrientsBuilder withCarbohydrates(Double carbohydrates) {
         this.carbohydrates = carbohydrates;
         return this;
     }
 
-    public NutrientsBuilder withFats(Integer fats) {
+    public NutrientsBuilder withFats(Double fats) {
         this.fats = fats;
         return this;
     }

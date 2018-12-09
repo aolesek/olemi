@@ -40,11 +40,11 @@ public class StatsActivity extends AppCompatActivity {
 
     }
 
-    private void fillStats(List<Pair<Integer, Integer>> calorieGoals, int totalId, int dailyId, int deviationId, int graphId) {
+    private void fillStats(List<Pair<Double, Integer>> calorieGoals, int totalId, int dailyId, int deviationId, int graphId) {
         final int days = calorieGoals.size();
-        final int eatenCalories = calorieGoals.stream()
+        final double eatenCalories = calorieGoals.stream()
                 .map(pair -> pair.first)
-                .mapToInt(Integer::intValue).sum();
+                .mapToDouble(Double::doubleValue).sum();
         final int maxAllowedCalories = calorieGoals.stream()
                 .map(pair -> pair.second)
                 .mapToInt(Integer::intValue).sum();
@@ -58,7 +58,7 @@ public class StatsActivity extends AppCompatActivity {
         fillGraph(calorieGoals, graphId);
     }
 
-    private void fillGraph(List<Pair<Integer, Integer>> calorieGoals, int graphId) {
+    private void fillGraph(List<Pair<Double, Integer>> calorieGoals, int graphId) {
         final List<DataPoint> dataPoints = new LinkedList<>();
 
         for (int i = 0; i < calorieGoals.size(); i++) {

@@ -30,7 +30,7 @@ public interface UserRepository {
 
     Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(Calendar day);
 
-    Single<Pair<Integer, Integer>> getCaloriesGoalStats(Calendar day);
+    Single<Pair<Double, Integer>> getCaloriesGoalStats(Calendar day);
 
-    Single<List<Pair<Integer, Integer>>> getCaloriesGoalStats(int numberOfDays);
+    Single<List<Pair<Double, Integer>>> getCaloriesGoalStats(int numberOfDays);
 }

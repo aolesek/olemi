@@ -82,16 +82,16 @@ public class MealAdapter extends ArrayAdapter<MealModel> implements Filterable {
         list_meal_name.setText(mealModel.getName());
 
         TextView list_meal_info_carbs = (TextView) listItem.findViewById(R.id.list_meal_info_carbs);
-        list_meal_info_carbs.setText("C: " + mealModel.getNutrients().carbohydrates.toString());
+        list_meal_info_carbs.setText(String.format("C: %.0f", mealModel.getNutrients().carbohydrates));
 
         TextView list_meal_info_protein = (TextView) listItem.findViewById(R.id.list_meal_info_protein);
-        list_meal_info_protein.setText("P: " + mealModel.getNutrients().protein.toString());
+        list_meal_info_protein.setText(String.format("P: %.0f", mealModel.getNutrients().protein));
 
         TextView list_meal_info_fat = (TextView) listItem.findViewById(R.id.list_meal_info_fat);
-        list_meal_info_fat.setText("F: " + mealModel.getNutrients().fats.toString());
+        list_meal_info_fat.setText(String.format("F: %.0f", mealModel.getNutrients().fats));
 
         TextView list_meal_info_calories = (TextView) listItem.findViewById(R.id.list_meal_info_calories);
-        list_meal_info_calories.setText("Cal: " + mealModel.getNutrients().calories.toString());
+        list_meal_info_calories.setText(String.format("Cal: %.0f", mealModel.getNutrients().calories));
 
         return listItem;
     }

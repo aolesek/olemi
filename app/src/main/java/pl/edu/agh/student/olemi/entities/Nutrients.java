@@ -1,5 +1,6 @@
 package pl.edu.agh.student.olemi.entities;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import androidx.room.Entity;
@@ -11,13 +12,13 @@ public class Nutrients {
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    public Integer calories;
+    public Double calories;
 
-    public Integer protein;
+    public Double protein;
 
-    public Integer carbohydrates;
+    public Double carbohydrates;
 
-    public Integer fats;
+    public Double fats;
 
     public Long getId() {
         return id;
@@ -36,16 +37,43 @@ public class Nutrients {
 
     public Nutrients multiplyBy(Double factor) {
         Nutrients nutrients = NutrientsBuilder.copyNutrients(this).build();
-        nutrients.calories = (int) (factor * this.calories);
-        nutrients.protein = (int) (factor * this.protein);
-        nutrients.carbohydrates = (int) (factor * this.carbohydrates);
-        nutrients.fats = (int) (factor * this.fats);
+        nutrients.calories = factor * this.calories;
+        nutrients.protein = factor * this.protein;
+        nutrients.carbohydrates = factor * this.carbohydrates;
+        nutrients.fats = factor * this.fats;
         return nutrients;
     }
 
     public static Nutrients sumOf(Nutrients... nutrients) {
-        final Nutrients result = NutrientsBuilder.aNutrients().withCalories(0).withCarbohydrates(0).withFats(0).withProtein(0).build();
+        final Nutrients result = NutrientsBuilder.aNutrients().withCalories(0d).withCarbohydrates(0d).withFats(0d).withProtein(0d).build();
         Stream.of(nutrients).forEach(result::add);
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Nutrients nutrients = (Nutrients) o;
+        return Objects.equals(calories, nutrients.calories) &&
+                Objects.equals(protein, nutrients.protein) &&
+                Objects.equals(carbohydrates, nutrients.carbohydrates) &&
+                Objects.equals(fats, nutrients.fats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(calories, protein, carbohydrates, fats);
+    }
+
+    @Override
+    public String toString() {
+        return "Nutrients{" +
+                "id=" + id +
+                ", calories=" + calories +
+                ", protein=" + protein +
+                ", carbohydrates=" + carbohydrates +
+                ", fats=" + fats +
+                '}';
     }
 }
