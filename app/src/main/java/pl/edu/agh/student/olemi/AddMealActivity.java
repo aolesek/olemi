@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,14 +63,14 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
         NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
         npr.getProductsWithLimit(10).subscribe(t -> productModels.addAll(t));
 
-        mealAdapter = new SearchMealAdapter(this, productModels);
+        mealAdapter = new SearchMealAdapter(this, R.layout.search_list_item, productModels);
         final ListView listView = findViewById(R.id.list_new_meal_search);
         listView.setAdapter(mealAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ProductModel productModel = productModels.get(position);
+                ProductModel productModel = mealAdapter.getItem(position);
                 onButtonShowPopupWindowClick(view, productModel);
             }
         });
@@ -88,6 +89,7 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
@@ -128,7 +130,21 @@ public class AddMealActivity extends AppCompatActivity implements SearchView.OnQ
                 return true;
             }
         });
+
+        dimBehind(popupWindow);
     }
+
+    public static void dimBehind(PopupWindow popupWindow) {
+        View container = popupWindow.getContentView().getRootView();
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.3f;
+        wm.updateViewLayout(container, p);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -19,61 +19,57 @@ import pl.edu.agh.student.olemi.models.ProductModel;
 
 public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Filterable {
 
-    private Context mContext;
-    private List<ProductModel> mealList;
-    private MealFilter mealFilter;
-    private List<ProductModel> filteredList;
+    private ArrayList<ProductModel> fullList;
+    private ArrayList<ProductModel> mOriginalValues;
+    private ArrayFilter mFilter;
 
-    public SearchMealAdapter(@NonNull Context context, List<ProductModel> list) {
-        super(context, 0, list);
-        this.mContext = context;
-        this.mealList = list;
-        this.filteredList = list;
+    public SearchMealAdapter(Context context, int resource, List<ProductModel> objects) {
+        super(context, resource, objects);
+        fullList = (ArrayList<ProductModel>) objects;
+        mOriginalValues = new ArrayList<ProductModel>(fullList);
 
-        getFilter();
     }
 
-    /**
-     * Get size of user list
-     * @return userList size
-     */
+    @Override
+    public void add(ProductModel object) {
+        super.add(object);
+        fullList.add(object);
+        mOriginalValues.add(object);
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        fullList.clear();
+        mOriginalValues.clear();
+    }
+
     @Override
     public int getCount() {
-        if(filteredList != null)
-            return filteredList.size();
-        else
-            return 0;
+        return fullList.size();
     }
 
-    /**
-     * Get specific item from user list
-     * @param i item index
-     * @return list item
-     */
     @Override
-    public ProductModel getItem(int i) {
-        return filteredList.get(i);
+    public ProductModel getItem(int position) {
+        return fullList.get(position);
     }
 
-    /**
-     * Get user list item id
-     * @param i item index
-     * @return current item id
-     */
     @Override
-    public long getItemId(int i) {
-        return i;
+    public Filter getFilter() {
+        if (mFilter == null) {
+            mFilter = new ArrayFilter();
+        }
+        return mFilter;
     }
-
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
         View listItem = convertView;
         if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.search_list_item,parent,false);
+            listItem = LayoutInflater.from(getContext()).inflate(R.layout.search_list_item,parent,false);
 
-        ProductModel productModel = mealList.get(position);
+        ProductModel productModel = getItem(position);
 
         TextView list_search_name = (TextView) listItem.findViewById(R.id.list_search_name);
         list_search_name.setText(productModel.getName());
@@ -81,52 +77,44 @@ public class SearchMealAdapter extends ArrayAdapter<ProductModel> implements Fil
         return listItem;
     }
 
-    @Override
-    public Filter getFilter() {
-        if (mealFilter == null) {
-            mealFilter = new MealFilter();
-        }
-        return mealFilter;
-    }
 
-    private class MealFilter extends Filter {
+    private class ArrayFilter extends Filter {
 
         @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults filterResults = new FilterResults();
-            if (constraint!=null && constraint.length()>0) {
-                ArrayList<ProductModel> tempList = new ArrayList<ProductModel>();
+        protected FilterResults performFiltering(CharSequence prefix) {
+            FilterResults results = new FilterResults();
+            ArrayList<ProductModel> list =  new ArrayList<ProductModel>();
 
-                // search content in friend list
-                for (ProductModel productModel : mealList) {
-                    if (productModel.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        tempList.add(productModel);
-                    }
-                }
-
-                filterResults.count = tempList.size();
-                filterResults.values = tempList;
-            } else {
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
-                filterResults.count = mealList.size();
-                filterResults.values = mealList;
+            if (mOriginalValues == null) {
+                mOriginalValues = new ArrayList<ProductModel>(fullList);
             }
 
-            return filterResults;
+            for (ProductModel item : mOriginalValues) {
+                if (item.getName().toLowerCase().contains(prefix.toString().toLowerCase())) {
+                    list.add(item);
+                }
+            }
+
+            results.values = list;
+            results.count = list.size();
+            return results;
         }
 
-        /**
-         * Notify about filtered list to ui
-         * @param constraint text
-         * @param results filtered result
-         */
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredList = (List<ProductModel>) results.values;
-            clear();
-            addAll(filteredList);
-            notifyDataSetChanged();
+
+            if (results.values != null) {
+                fullList = (ArrayList<ProductModel>) results.values;
+            } else {
+                fullList = new ArrayList<ProductModel>();
+            }
+
+            if (results.count > 0) {
+                notifyDataSetChanged();
+            } else {
+                notifyDataSetInvalidated();
+            }
         }
     }
 }

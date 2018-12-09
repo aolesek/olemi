@@ -24,13 +24,24 @@
         android:background="#0000"/>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editText_mealWeight"
         android:layout_width="116dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="119dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="139dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editText_mealName"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="53dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -39,24 +50,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/button_add_popup"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="4dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="110dp"
         android:layout_toEndOf="@+id/editText2"
         android:padding="15dp"
         android:text="g" />
 
+
     <TextView
-        android:id="@+id/popup_product_name"
-        android:layout_width="141dp"
+        android:id="@+id/popup_type_name"
+        android:layout_width="218dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="11dp"
 
         android:padding="15dp"
-        android:text="Nazwa produktu" />
+        android:text="Set name of meal" />
 
     <TextView
         android:id="@+id/popup_type_weight"
@@ -64,10 +77,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="88dp"
-
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="96dp"
         android:padding="15dp"
-        android:text="Set ingriedient weight" />
+        android:text="Set weight of meal" />
 
 </RelativeLayout>
