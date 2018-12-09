@@ -4,6 +4,7 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.common.collect.Lists;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -59,10 +60,12 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void fillGraph(List<Pair<Double, Integer>> calorieGoals, int graphId) {
+        final List<Pair<Double, Integer>> reversed = Lists.reverse(calorieGoals); // calorie
+        // goals are from the latest by default
         final List<DataPoint> dataPoints = new LinkedList<>();
 
-        for (int i = 0; i < calorieGoals.size(); i++) {
-            dataPoints.add(new DataPoint(i, calorieGoals.get(i).first));
+        for (int i = 0; i < reversed.size(); i++) {
+            dataPoints.add(new DataPoint(i, reversed.get(i).first));
         }
 
         final GraphView graph = (GraphView) findViewById(graphId);
@@ -72,7 +75,7 @@ public class StatsActivity extends AppCompatActivity {
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
                     int val = (int) value;
-                    return xToDay(val, calorieGoals.size());
+                    return xToDay(val, reversed.size());
                 } else {
                     return super.formatLabel(value, isValueX);
                 }
