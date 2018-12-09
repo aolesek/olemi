@@ -100,7 +100,7 @@ public class GoalSettings extends AppCompatActivity {
         final int selectedItemPosition = ((Spinner) findViewById(R.id.goalsWeightLossSpinner)).getSelectedItemPosition();
         double firstRate = 0.1;
         double step = 0.1;
-        double finalRate = firstRate + selectedItemPosition * step;
+        double finalRate = firstRate + (selectedItemPosition + 1) * step;
         return finalRate;
     }
 

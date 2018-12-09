@@ -72,7 +72,7 @@ public class CalendarActivity extends AppCompatActivity {
         userRepository.getCaloriesGoalStats(day).subscribe(goal -> addEventIcons(goal, day));
     }
 
-    private void addEventIcons(Pair<Integer, Integer> goalStatus, Calendar currentDay) {
+    private void addEventIcons(Pair<Double, Integer> goalStatus, Calendar currentDay) {
         final Integer goalStatusAsset = getGoalStatusAsset(goalStatus);
         if (Objects.nonNull(goalStatusAsset))
             eventDays.put(calendarDateToString(currentDay), new EventDay(toJavaCalendar(currentDay), getGoalStatusAsset(goalStatus)));
@@ -84,8 +84,8 @@ public class CalendarActivity extends AppCompatActivity {
             calendarView.setEvents(new ArrayList<EventDay>(eventDays.values()));
     }
 
-    private Integer getGoalStatusAsset(Pair<Integer, Integer> goalStatus) {
-        int diff = goalStatus.second - goalStatus.first;
+    private Integer getGoalStatusAsset(Pair<Double, Integer> goalStatus) {
+        double diff = goalStatus.second - goalStatus.first;
         if (diff < Constants.GOAL_EXCEEDED_THRESHOLD) return R.drawable.goal_exceeded;
         else if (diff < Constants.GOAL_ACHIEVED_THRESHOLD) return R.drawable.goal_achieved;
         else if (diff < Constants.GOAL_NEAR_THRESHOLD) return R.drawable.goal_near;
@@ -98,7 +98,6 @@ public class CalendarActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.calendar_actions_menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

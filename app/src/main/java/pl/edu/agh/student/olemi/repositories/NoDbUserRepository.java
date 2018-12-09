@@ -89,14 +89,14 @@ public class NoDbUserRepository implements UserRepository {
     }
 
     @Override
-    public Single<Pair<Integer, Integer>> getCaloriesGoalStats(Calendar day) {
+    public Single<Pair<Double, Integer>> getCaloriesGoalStats(Calendar day) {
         clearCalendar(day);
         return getFullGoalStats(day).map(
                 dataWithNutrients -> Pair.create(dataWithNutrients.first.calories, dataWithNutrients.second.getCaloriesGoal()));
     }
 
     @Override
-    public Single<List<Pair<Integer, Integer>>> getCaloriesGoalStats(int numberOfDays) {
+    public Single<List<Pair<Double, Integer>>> getCaloriesGoalStats(int numberOfDays) {
         final List<Calendar> days = new LinkedList<>();
         IntStream.range(0, numberOfDays).forEach(dayNumber -> {
             final Calendar day = Calendar.getInstance();
@@ -105,7 +105,7 @@ public class NoDbUserRepository implements UserRepository {
             days.add(day);
         });
 
-        final Single<List<Pair<Integer, Integer>>> results = Flowable.fromIterable(days)
+        final Single<List<Pair<Double, Integer>>> results = Flowable.fromIterable(days)
                 .flatMapSingle(this::getCaloriesGoalStats)
                 .toList();
         return results;

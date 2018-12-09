@@ -146,7 +146,7 @@ public class UserDataModel {
         }
 
         private void calculateCalorieGoal() {
-            final String maleGender = OlemiApplication.getContext().getResources().getStringArray(R.array.goalsGenders)[0];
+            final String maleGender = "male";
             final double BMR = gender.toLowerCase().equals(maleGender)
                     ? ((this.height * 6.25) + (this.weight * 9.99) - (this.age * 4.92) + 5)
                     : ((this.height * 6.25) + (this.weight * 9.99) - (this.age * 4.92) - 161);
