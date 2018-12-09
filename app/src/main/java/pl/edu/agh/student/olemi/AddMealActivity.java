@@ -1,8 +1,6 @@
 package pl.edu.agh.student.olemi;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -28,10 +26,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import pl.edu.agh.student.olemi.helpers.HoldInfo;
 import pl.edu.agh.student.olemi.helpers.SearchMealAdapter;
-import pl.edu.agh.student.olemi.model_maciek.Pair;
 import pl.edu.agh.student.olemi.models.IngredientModel;
 import pl.edu.agh.student.olemi.models.ProductModel;
 import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;

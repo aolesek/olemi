@@ -25,8 +25,8 @@
     <string name="goalsUserDataUpdated">User data updated. New goals calorie: %d, proteins: %d, fats: %d, carbohydrates: %d</string>
     <string name="goalsUserDataError">The entered data is incorrect</string>
     <string name="statsLastWeekTitle">Last 7 days</string>
-    <string name="statsWeekCaloriesTotal">Total calories %.0f / %.0f kcal</string>
-    <string name="statsWeekCaloriesDaily">Calories daily %.0f / %.0f kcal</string>
+    <string name="statsWeekCaloriesTotal">Total calories %.0f / %d kcal</string>
+    <string name="statsWeekCaloriesDaily">Calories daily %.0f / %d kcal</string>
     <string name="statsWeekCaloriesVariation">Deviation %.0f kcal</string>
     <string name="stats_last_month_title">Last 21 days</string>
     <string name="stats_title">Stats</string>

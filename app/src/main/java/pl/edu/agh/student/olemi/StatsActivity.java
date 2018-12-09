@@ -48,10 +48,10 @@ public class StatsActivity extends AppCompatActivity {
         final int maxAllowedCalories = calorieGoals.stream()
                 .map(pair -> pair.second)
                 .mapToInt(Integer::intValue).sum();
-        final int deviation = (int) ((maxAllowedCalories - eatenCalories) / days);
+        final double deviation = ((maxAllowedCalories - eatenCalories) / days);
         ((TextView) findViewById(totalId)).setText(String.format(getString(R.string.statsWeekCaloriesTotal),
                 eatenCalories, maxAllowedCalories));
-        final int eatenDaily = (int) (eatenCalories / days);
+        final double eatenDaily = (eatenCalories / days);
         final int allowedDaily = (int) (maxAllowedCalories / days);
         ((TextView) findViewById(dailyId)).setText(String.format(getString(R.string.statsWeekCaloriesDaily), eatenDaily, allowedDaily));
         ((TextView) findViewById(deviationId)).setText(String.format(getString(R.string.statsWeekCaloriesVariation), deviation));

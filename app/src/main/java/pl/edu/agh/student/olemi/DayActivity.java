@@ -53,7 +53,7 @@ public class DayActivity extends AppCompatActivity {
 
         userRepository = new NoDbUserRepository(getApplicationContext());
 
-     //   initRepo();
+        //   initRepo();
 
         List<MealModel> productModels = new ArrayList<>();
 
@@ -75,6 +75,25 @@ public class DayActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final Intent intent = getIntent();
+        final String message = Objects.nonNull(intent.getStringExtra(SELECTED_DAY))
+                ? intent.getStringExtra(SELECTED_DAY)
+                : calendarDateToString(Calendar.getInstance());
+
+        userRepository.getMeals(message).subscribe(meals -> {
+            mealAdapter = new MealAdapter(getApplicationContext(), meals);
+            mealAdapter.notifyDataSetChanged();
+
+            for (MealModel m : meals) {
+                System.out.println(m.getName());
+            }
+        });
     }
 
     @SuppressLint("CheckResult")

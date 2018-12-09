@@ -5,7 +5,6 @@ import java.util.List;
 
 import pl.edu.agh.student.olemi.entities.Nutrients;
 import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
-import pl.edu.agh.student.olemi.model_maciek.ComplexProduct;
 
 public class ComplexProductModel implements ProductModel {
 

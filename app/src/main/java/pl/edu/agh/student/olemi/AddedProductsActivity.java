@@ -14,18 +14,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import pl.edu.agh.student.olemi.helpers.AddedProductsAdapter;
 import pl.edu.agh.student.olemi.helpers.HoldInfo;
-import pl.edu.agh.student.olemi.helpers.SearchMealAdapter;
-import pl.edu.agh.student.olemi.model_maciek.SimpleProduct;
 import pl.edu.agh.student.olemi.models.ComplexProductModel;
-import pl.edu.agh.student.olemi.models.IngredientModel;
 import pl.edu.agh.student.olemi.models.MealModel;
-import pl.edu.agh.student.olemi.models.ProductModel;
 import pl.edu.agh.student.olemi.models.SimpleProductModel;
 import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
 import pl.edu.agh.student.olemi.repositories.UserRepository;
