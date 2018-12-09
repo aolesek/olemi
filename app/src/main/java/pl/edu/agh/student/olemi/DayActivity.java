@@ -41,6 +41,8 @@ public class DayActivity extends AppCompatActivity {
 
     private ListView listView;
 
+    MealAdapter mealAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,25 @@ public class DayActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        final Intent intent = getIntent();
+        final String message = Objects.nonNull(intent.getStringExtra(SELECTED_DAY))
+                ? intent.getStringExtra(SELECTED_DAY)
+                : calendarDateToString(Calendar.getInstance());
+
+        userRepository.getMeals(message).subscribe(meals -> {
+            mealAdapter = new MealAdapter(getApplicationContext(), meals);
+            mealAdapter.notifyDataSetChanged();
+
+            for(MealModel m : meals){
+                System.out.println(m.getProduct().getName());
+            }
+        });
+    }
+
     @SuppressLint("CheckResult")
     public void fetchMeals() {
         final Intent intent = getIntent();
@@ -85,7 +106,7 @@ public class DayActivity extends AppCompatActivity {
         Timber.i("Fetching meals for " + message);
 
         userRepository.getMeals(message).subscribe(meals -> {
-            final MealAdapter mealAdapter = new MealAdapter(getApplicationContext(), meals);
+            mealAdapter = new MealAdapter(getApplicationContext(), meals);
 
             DayActivity.this.listView.post(() -> {
                 ListView lV = findViewById(R.id.list21);
