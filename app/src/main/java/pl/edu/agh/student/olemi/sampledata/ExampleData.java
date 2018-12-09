@@ -28,6 +28,8 @@ import timber.log.Timber;
 
 public class ExampleData {
 
+    private final int NUMBER_OF_DAYS = 30;
+
     private final List<ProductModel> availableProducts = new ArrayList<>();
 
     private final ListMultimap<Calendar, MealModel> meals = ArrayListMultimap.create();
@@ -91,7 +93,7 @@ public class ExampleData {
     }
 
     private void generateMeals() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < NUMBER_OF_DAYS; i++) {
             Calendar day = Calendar.getInstance();
             day.add(Calendar.DATE, -i);
             generateMealsForSingleDay(day);
@@ -116,10 +118,8 @@ public class ExampleData {
                 .collect(Collectors.toList());
 
         final Nutrients sum = Nutrients.sumOf(allMealsNutrients.toArray(new Nutrients[0]));
-        if (Math.abs(sum.calories - userData.getCaloriesGoal()) < 300) {
-            return true;
-        }
-        if (sum.calories - userData.getCaloriesGoal() > 300) {
+        if (Math.abs(sum.calories - userData.getCaloriesGoal()) < 300 || sum.calories - userData.getCaloriesGoal() > 300) {
+//            Timber.i("Near goal! " + sum.calories);
             return true;
         }
         return false;
