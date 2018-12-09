@@ -77,25 +77,6 @@ public class DayActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        final Intent intent = getIntent();
-        final String message = Objects.nonNull(intent.getStringExtra(SELECTED_DAY))
-                ? intent.getStringExtra(SELECTED_DAY)
-                : calendarDateToString(Calendar.getInstance());
-
-        userRepository.getMeals(message).subscribe(meals -> {
-            mealAdapter = new MealAdapter(getApplicationContext(), meals);
-            mealAdapter.notifyDataSetChanged();
-
-            for(MealModel m : meals){
-                System.out.println(m.getProduct().getName());
-            }
-        });
-    }
-
     @SuppressLint("CheckResult")
     public void fetchMeals() {
         final Intent intent = getIntent();
@@ -114,22 +95,6 @@ public class DayActivity extends AppCompatActivity {
             });
         });
     }
-
- /*   public void initRepo() {
-        NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
-        pl.edu.agh.student.olemi.entities.Nutrients nutrients = NutrientsBuilder.aNutrients()
-                .withCalories(100d)
-                .withCarbohydrates(12d)
-                .withFats(34d)
-                .withProtein(14d)
-                .build();
-        SimpleProductModel sp = new SimpleProductModel("maryna", nutrients);
-        SimpleProductModel sp2 = new SimpleProductModel("kasztan", nutrients);
-        SimpleProductModel sp3 = new SimpleProductModel("smietana", nutrients);
-        npr.insertProduct(sp).subscribe();
-        npr.insertProduct(sp2).subscribe();
-        npr.insertProduct(sp3).subscribe();
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
