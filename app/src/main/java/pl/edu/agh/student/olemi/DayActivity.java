@@ -51,7 +51,7 @@ public class DayActivity extends AppCompatActivity {
 
         userRepository = new NoDbUserRepository(getApplicationContext());
 
-        initRepo();
+     //   initRepo();
 
         List<MealModel> productModels = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class DayActivity extends AppCompatActivity {
         });
     }
 
-    public void initRepo() {
+ /*   public void initRepo() {
         NoDbProductRepository npr = new NoDbProductRepository(getApplicationContext());
         pl.edu.agh.student.olemi.entities.Nutrients nutrients = NutrientsBuilder.aNutrients()
                 .withCalories(100)
@@ -108,7 +108,7 @@ public class DayActivity extends AppCompatActivity {
         npr.insertProduct(sp).subscribe();
         npr.insertProduct(sp2).subscribe();
         npr.insertProduct(sp3).subscribe();
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
