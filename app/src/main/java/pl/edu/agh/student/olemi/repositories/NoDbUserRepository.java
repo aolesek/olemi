@@ -1,12 +1,14 @@
 package pl.edu.agh.student.olemi.repositories;
 
 import android.content.Context;
-import android.icu.util.Calendar;
+
+import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,37 +16,34 @@ import java.util.stream.IntStream;
 import androidx.core.util.Pair;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 import pl.edu.agh.student.olemi.database.MockDatabase;
 import pl.edu.agh.student.olemi.entities.Nutrients;
 import pl.edu.agh.student.olemi.models.MealModel;
 import pl.edu.agh.student.olemi.models.UserDataModel;
 
-import static pl.edu.agh.student.olemi.utils.DateTimeUtils.calendarDateToString;
-import static pl.edu.agh.student.olemi.utils.DateTimeUtils.clearCalendar;
-
 public class NoDbUserRepository implements UserRepository {
 
     final MockDatabase mockDatabase;
 
-    public NoDbUserRepository(Context context) {
-        this.mockDatabase = MockDatabase.getInstance(context);
+    public NoDbUserRepository(Context context, boolean shoudGenerateData) {
+        if (shoudGenerateData) {
+            this.mockDatabase = MockDatabase.getInstance(context);
+        } else {
+            this.mockDatabase = MockDatabase.getEmptyInstance(context);
+        }
     }
 
     @Override
     public Completable insertMeal(MealModel mealModel) {
-        return Completable.fromRunnable(() -> mockDatabase.meals.put(calendarDateToString(mealModel.getDay()), mealModel));
+        return Completable.fromRunnable(() -> mockDatabase.meals.put(mealModel.getDay().toString(),
+                mealModel));
     }
 
     @Override
     public Completable insertUserData(UserDataModel userDataModel) {
         return Completable.fromRunnable(() -> mockDatabase.userData = userDataModel);
-    }
-
-    @Override
-    public Flowable<List<MealModel>> getMeals(Calendar day) {
-        final Collection<MealModel> mealModels = mockDatabase.meals.get(calendarDateToString(day));
-        return Flowable.just(new ArrayList<>(mealModels));
     }
 
     @Override
@@ -57,10 +56,8 @@ public class NoDbUserRepository implements UserRepository {
     public Flowable<List<MealModel>> getMealsForLastDays(int numberOfDays) {
         final List<MealModel> filteredMeals = new ArrayList<>();
         IntStream.range(0, numberOfDays).forEach(dayNumber -> {
-            final Calendar day = Calendar.getInstance();
-            day.add(Calendar.DAY_OF_YEAR, -dayNumber);
-            clearCalendar(day);
-            filteredMeals.addAll(mockDatabase.meals.get(calendarDateToString(day)));
+            final String dateAsString = LocalDate.now().minusDays(dayNumber).toString();
+            filteredMeals.addAll(mockDatabase.meals.get(dateAsString));
         });
 
         return Flowable.just(filteredMeals);
@@ -77,9 +74,8 @@ public class NoDbUserRepository implements UserRepository {
     }
 
     @Override
-    public Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(Calendar day) {
-        clearCalendar(day);
-        final Set<Nutrients> allDayNutrients = mockDatabase.meals.get(calendarDateToString(day)).stream()
+    public Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(String day) {
+        final Set<Nutrients> allDayNutrients = mockDatabase.meals.get(day).stream()
                 .map(mealModel -> {
                     return mealModel.getNutrients();
                 })
@@ -89,24 +85,22 @@ public class NoDbUserRepository implements UserRepository {
     }
 
     @Override
-    public Single<Pair<Double, Integer>> getCaloriesGoalStats(Calendar day) {
-        clearCalendar(day);
-        return getFullGoalStats(day).map(
-                dataWithNutrients -> Pair.create(dataWithNutrients.first.calories, dataWithNutrients.second.getCaloriesGoal()));
+    public Maybe<Pair<Double, Integer>> getCaloriesGoalStats(String day) {
+        return getFullGoalStats(day)
+                .filter(dataWithNutrients -> Objects.nonNull(dataWithNutrients.first) && Objects.nonNull(dataWithNutrients.second))
+                .map(dataWithNutrients -> Pair.create(dataWithNutrients.first.calories, dataWithNutrients.second.getCaloriesGoal()));
     }
 
     @Override
     public Single<List<Pair<Double, Integer>>> getCaloriesGoalStats(int numberOfDays) {
-        final List<Calendar> days = new LinkedList<>();
+        final List<String> days = new LinkedList<>();
         IntStream.range(0, numberOfDays).forEach(dayNumber -> {
-            final Calendar day = Calendar.getInstance();
-            day.add(Calendar.DAY_OF_YEAR, -dayNumber);
-            clearCalendar(day);
+            final String day = LocalDate.now().minusDays(dayNumber).toString();
             days.add(day);
         });
 
         final Single<List<Pair<Double, Integer>>> results = Flowable.fromIterable(days)
-                .flatMapSingle(this::getCaloriesGoalStats)
+                .flatMapMaybe(this::getCaloriesGoalStats)
                 .toList();
         return results;
     }

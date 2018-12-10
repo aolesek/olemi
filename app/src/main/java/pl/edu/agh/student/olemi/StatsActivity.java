@@ -1,13 +1,15 @@
 package pl.edu.agh.student.olemi;
 
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.common.collect.Lists;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import org.threeten.bp.LocalDate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
 import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
 import pl.edu.agh.student.olemi.repositories.UserRepository;
-import timber.log.Timber;
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class StatsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.stats_title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        userRepository = new NoDbUserRepository(getApplicationContext());
+        userRepository = new NoDbUserRepository(getApplicationContext(), true);
 
         userRepository.getCaloriesGoalStats(7).subscribe(goals -> fillStats(goals, R.id.statsWeekCalories, R.id.statsWeekDaily, R.id.statsWeekDeviation, R.id.week_graph));
         userRepository.getCaloriesGoalStats(21).subscribe(goals -> fillStats(goals, R.id.statsMonthCalories, R.id.statsMonthDaily, R.id.statsMonthDeviation, R.id.month_graph));
@@ -59,10 +60,12 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void fillGraph(List<Pair<Double, Integer>> calorieGoals, int graphId) {
+        final List<Pair<Double, Integer>> reversed = Lists.reverse(calorieGoals); // calorie
+        // goals are from the latest by default
         final List<DataPoint> dataPoints = new LinkedList<>();
 
-        for (int i = 0; i < calorieGoals.size(); i++) {
-            dataPoints.add(new DataPoint(i, calorieGoals.get(i).first));
+        for (int i = 0; i < reversed.size(); i++) {
+            dataPoints.add(new DataPoint(i, reversed.get(i).first));
         }
 
         final GraphView graph = (GraphView) findViewById(graphId);
@@ -72,7 +75,7 @@ public class StatsActivity extends AppCompatActivity {
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
                     int val = (int) value;
-                    return xToDay(val, calorieGoals.size());
+                    return xToDay(val, reversed.size());
                 } else {
                     return super.formatLabel(value, isValueX);
                 }
@@ -82,8 +85,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private String xToDay(int x, int numberOfDays) {
-        final Calendar day = Calendar.getInstance();
-        day.add(Calendar.DAY_OF_YEAR, -(numberOfDays - x - 1));
-        return String.valueOf(day.get(Calendar.DATE));
+        final LocalDate day = LocalDate.now().minusDays(numberOfDays - x - 1);
+        return String.valueOf(day.getDayOfMonth());
     }
 }

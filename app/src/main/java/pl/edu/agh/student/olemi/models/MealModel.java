@@ -2,6 +2,8 @@ package pl.edu.agh.student.olemi.models;
 
 import android.icu.util.Calendar;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.Objects;
 
 import pl.edu.agh.student.olemi.entities.Nutrients;
@@ -10,11 +12,11 @@ import pl.edu.agh.student.olemi.entities.Product;
 
 public class MealModel {
 
-    private Calendar day;
+    private LocalDate day;
     private ProductModel product;
     private Double weight;
 
-    public MealModel(Calendar day, ProductModel product, Double weight) {
+    public MealModel(LocalDate day, ProductModel product, Double weight) {
         this.day = day;
         this.product = product;
         this.product.getNutrients();
@@ -42,11 +44,11 @@ public class MealModel {
         this.weight = weight;
     }
 
-    public Calendar getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
-    public void setDay(Calendar day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 

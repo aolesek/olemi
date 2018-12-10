@@ -2,7 +2,6 @@ package pl.edu.agh.student.olemi.repositories;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,10 +14,14 @@ import pl.edu.agh.student.olemi.models.SimpleProductModel;
 
 public class NoDbProductRepository implements ProductRepository {
 
-    final MockDatabase mockDatabase;
+    public MockDatabase mockDatabase;
 
-    public NoDbProductRepository(Context context) {
-        this.mockDatabase= MockDatabase.getInstance(context);
+    public NoDbProductRepository(Context context, boolean generateDb) {
+        if (generateDb) {
+            this.mockDatabase = MockDatabase.getInstance(context);
+        } else {
+            this.mockDatabase = MockDatabase.getEmptyInstance(context);
+        }
     }
 
     @Override

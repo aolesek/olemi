@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import org.threeten.bp.LocalDate;
+
 import androidx.appcompat.app.AppCompatActivity;
 import pl.edu.agh.student.olemi.helpers.AddedProductsAdapter;
 import pl.edu.agh.student.olemi.helpers.HoldInfo;
@@ -36,7 +38,7 @@ public class AddedProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_added_products);
         initList();
 
-        userRepository = new NoDbUserRepository(getApplicationContext());
+        userRepository = new NoDbUserRepository(getApplicationContext(), true);
 
         Button button = findViewById(R.id.button_addMeal);
         button.setOnClickListener(new View.OnClickListener() {
@@ -63,13 +65,13 @@ public class AddedProductsActivity extends AppCompatActivity {
         if(holdInfo.getIngredientModelList().size()>1){
             ComplexProductModel cpm = new ComplexProductModel(mealName);
             cpm.setIngredients(holdInfo.getIngredientModelList());
-            MealModel mealModel = new MealModel(Calendar.getInstance(), cpm, mealWeight);
+            MealModel mealModel = new MealModel(LocalDate.now(), cpm, mealWeight);
             userRepository.insertMeal(mealModel).subscribe();
         }else if(holdInfo.getIngredientModelList().size() == 1){
             SimpleProductModel sp = new SimpleProductModel(mealName,
                     holdInfo.getIngredientModelList().get(0).getProduct().getNutrients());
 
-            MealModel mealModel = new MealModel(Calendar.getInstance(), sp, mealWeight);
+            MealModel mealModel = new MealModel(LocalDate.now(), sp, mealWeight);
             userRepository.insertMeal(mealModel).subscribe();
         }
         holdInfo.setMealNr(holdInfo.getMealNr()+1);
