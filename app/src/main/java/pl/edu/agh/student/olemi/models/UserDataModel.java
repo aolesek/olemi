@@ -2,6 +2,8 @@ package pl.edu.agh.student.olemi.models;
 
 import android.content.res.Resources;
 
+import java.util.Objects;
+
 import pl.edu.agh.student.olemi.OlemiApplication;
 import pl.edu.agh.student.olemi.R;
 
@@ -191,5 +193,28 @@ public class UserDataModel {
 
             // TODO: implement modifying fat/carbs goal to fit calorie goal exactly
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDataModel that = (UserDataModel) o;
+        return Objects.equals(caloriesGoal, that.caloriesGoal) &&
+                Objects.equals(carbonhydrateGoal, that.carbonhydrateGoal) &&
+                Objects.equals(proteinGoal, that.proteinGoal) &&
+                Objects.equals(fatGoal, that.fatGoal) &&
+                Objects.equals(weight, that.weight) &&
+                Objects.equals(age, that.age) &&
+                Objects.equals(gender, that.gender) &&
+                Objects.equals(height, that.height) &&
+                Objects.equals(activityLevel, that.activityLevel) &&
+                Objects.equals(weightLossRate, that.weightLossRate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(caloriesGoal, carbonhydrateGoal, proteinGoal, fatGoal, weight, age, gender, height, activityLevel, weightLossRate);
     }
 }

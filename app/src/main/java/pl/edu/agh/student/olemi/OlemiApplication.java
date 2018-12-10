@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import pl.edu.agh.student.olemi.logging.DebugLogTree;
 import timber.log.Timber;
 
@@ -20,6 +22,7 @@ public class OlemiApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AndroidThreeTen.init(this);
         mContext = this;
         Timber.plant(new DebugLogTree());
         Timber.i("Application started");

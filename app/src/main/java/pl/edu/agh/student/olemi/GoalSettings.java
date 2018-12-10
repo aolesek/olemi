@@ -2,7 +2,6 @@ package pl.edu.agh.student.olemi;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.service.autofill.UserData;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
@@ -29,7 +28,7 @@ public class GoalSettings extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.goalsTitle));
 
-        this.userRepository = new NoDbUserRepository(getApplicationContext());
+        this.userRepository = new NoDbUserRepository(getApplicationContext(), true);
         userRepository.getUserData().subscribe(this::fillUserData);
     }
 

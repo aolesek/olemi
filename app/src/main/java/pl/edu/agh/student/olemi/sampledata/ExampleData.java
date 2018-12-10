@@ -1,11 +1,12 @@
 package pl.edu.agh.student.olemi.sampledata;
 
 import android.content.Context;
-import android.icu.util.Calendar;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.gson.Gson;
+
+import org.threeten.bp.LocalDate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +33,7 @@ public class ExampleData {
 
     private final List<ProductModel> availableProducts = new ArrayList<>();
 
-    private final ListMultimap<Calendar, MealModel> meals = ArrayListMultimap.create();
+    private final ListMultimap<LocalDate, MealModel> meals = ArrayListMultimap.create();
 
     private final UserDataModel userData;
 
@@ -94,13 +95,12 @@ public class ExampleData {
 
     private void generateMeals() {
         for (int i = 0; i < NUMBER_OF_DAYS; i++) {
-            Calendar day = Calendar.getInstance();
-            day.add(Calendar.DATE, -i);
+            LocalDate day = LocalDate.now().minusDays(i);
             generateMealsForSingleDay(day);
         }
     }
 
-    private void generateMealsForSingleDay(Calendar day) {
+    private void generateMealsForSingleDay(LocalDate day) {
         Random r = new Random();
 
         while (!isNearGoal(day)) {
@@ -111,7 +111,7 @@ public class ExampleData {
         }
     }
 
-    private boolean isNearGoal(Calendar day) {
+    private boolean isNearGoal(LocalDate day) {
         final List<MealModel> mealModels = meals.get(day);
         final List<Nutrients> allMealsNutrients = mealModels.stream()
                 .map(MealModel::getNutrients)
@@ -143,6 +143,8 @@ public class ExampleData {
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
+        } catch (NullPointerException e) {
+            return "[{\"name\":\"Jajko\",\"nutrients\":{\"calories\":120,\"carbohydrates\":50,\"fats\":12,\"protein\":13}},{\"name\":\"Ser\",\"nutrients\":{\"calories\":45,\"carbohydrates\":12,\"fats\":34,\"protein\":12}},{\"name\":\"Masło\",\"nutrients\":{\"calories\":400,\"carbohydrates\":4,\"fats\":14,\"protein\":5}},{\"name\":\"Pomidor\",\"nutrients\":{\"calories\":32,\"carbohydrates\":50,\"fats\":1,\"protein\":1}},{\"name\":\"Ogórek\",\"nutrients\":{\"calories\":16,\"carbohydrates\":23,\"fats\":1,\"protein\":1}},{\"name\":\"Pierś z kurczaka surowa\",\"nutrients\":{\"calories\":123,\"carbohydrates\":12,\"fats\":14,\"protein\":30}},{\"name\":\"Musztarda\",\"nutrients\":{\"calories\":78,\"carbohydrates\":23,\"fats\":12,\"protein\":1}},{\"name\":\"Chleb\",\"nutrients\":{\"calories\":200,\"carbohydrates\":34,\"fats\":3,\"protein\":1}},{\"name\":\"Kasza jaglana\",\"nutrients\":{\"calories\":80,\"carbohydrates\":64,\"fats\":1,\"protein\":0}},{\"name\":\"Kinder niespodzianka\",\"nutrients\":{\"calories\":300,\"carbohydrates\":50,\"fats\":20,\"protein\":0}},{\"name\":\"CocaCola Zero\",\"nutrients\":{\"calories\":0,\"carbohydrates\":3,\"fats\":0,\"protein\":0}},{\"name\":\"Ciasteczka z kokainą\",\"nutrients\":{\"calories\":12,\"carbohydrates\":34,\"fats\":56,\"protein\":78}},{\"name\":\"Makaron Penne\",\"nutrients\":{\"calories\":120,\"carbohydrates\":33,\"fats\":11,\"protein\":2}}]\n";
         }
         return json;
     }

@@ -1,12 +1,11 @@
 package pl.edu.agh.student.olemi.repositories;
 
-import android.icu.util.Calendar;
-
 import java.util.List;
 
 import androidx.core.util.Pair;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 import pl.edu.agh.student.olemi.entities.Nutrients;
 import pl.edu.agh.student.olemi.models.MealModel;
@@ -18,8 +17,6 @@ public interface UserRepository {
 
     Completable insertUserData(UserDataModel userDataModel);
 
-    Flowable<List<MealModel>> getMeals(Calendar day);
-
     Flowable<List<MealModel>> getMeals(String dayTimestamp);
 
     Flowable<List<MealModel>> getMealsForLastDays(int numberOfDays);
@@ -28,9 +25,9 @@ public interface UserRepository {
 
     Completable setUserData(UserDataModel userData);
 
-    Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(Calendar day);
+    Single<Pair<Nutrients, UserDataModel>> getFullGoalStats(String dayTimestamp);
 
-    Single<Pair<Double, Integer>> getCaloriesGoalStats(Calendar day);
+    Maybe<Pair<Double, Integer>> getCaloriesGoalStats(String dayTimestamp);
 
     Single<List<Pair<Double, Integer>>> getCaloriesGoalStats(int numberOfDays);
 }

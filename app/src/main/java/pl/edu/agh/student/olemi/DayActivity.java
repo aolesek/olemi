@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,26 +15,19 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.threeten.bp.LocalDate;
+
 import java.util.Objects;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.util.Pair;
 import pl.edu.agh.student.olemi.entities.Nutrients;
-import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
 import pl.edu.agh.student.olemi.helpers.MealAdapter;
 import pl.edu.agh.student.olemi.models.UserDataModel;
 import pl.edu.agh.student.olemi.repositories.NoDbUserRepository;
-import pl.edu.agh.student.olemi.repositories.ProductRepository;
 import pl.edu.agh.student.olemi.repositories.UserRepository;
-import pl.edu.agh.student.olemi.utils.DateTimeUtils;
 import timber.log.Timber;
 import pl.edu.agh.student.olemi.models.MealModel;
-import pl.edu.agh.student.olemi.models.SimpleProductModel;
-import pl.edu.agh.student.olemi.repositories.NoDbProductRepository;
-
-import static pl.edu.agh.student.olemi.utils.DateTimeUtils.*;
 
 public class DayActivity extends AppCompatActivity {
 
@@ -58,19 +49,16 @@ public class DayActivity extends AppCompatActivity {
         Toolbar myChildToolbar = (Toolbar) findViewById(R.id.day_toolbar);
         setSupportActionBar(myChildToolbar);
 
-        userRepository = new NoDbUserRepository(getApplicationContext());
+        userRepository = new NoDbUserRepository(getApplicationContext(), true);
 
         listView = findViewById(R.id.list21);
 
         fetchMeals();
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DayActivity.this, AddMealActivity.class);
-                startActivity(i);
-            }
+        fab.setOnClickListener(view -> {
+            Intent i = new Intent(DayActivity.this, AddMealActivity.class);
+            startActivity(i);
         });
 
     }
@@ -82,7 +70,7 @@ public class DayActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         dayMessage = Objects.nonNull(intent.getStringExtra(SELECTED_DAY))
                 ? intent.getStringExtra(SELECTED_DAY)
-                : calendarDateToString(Calendar.getInstance());
+                : LocalDate.now().toString();
 
         fillSummary();
 
@@ -101,7 +89,7 @@ public class DayActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         final String message = Objects.nonNull(intent.getStringExtra(SELECTED_DAY))
                 ? intent.getStringExtra(SELECTED_DAY)
-                : calendarDateToString(Calendar.getInstance());
+                : LocalDate.now().toString();
 
         Timber.i("Fetching meals for " + message);
 
@@ -156,7 +144,7 @@ public class DayActivity extends AppCompatActivity {
         final ProgressBar proteinsBar = (ProgressBar) findViewById(R.id.dayProteinsBar);
 
 
-        userRepository.getFullGoalStats(DateTimeUtils.stringDateToCalendar(dayMessage)).subscribe(stats -> {
+        userRepository.getFullGoalStats(dayMessage).subscribe(stats -> {
             caloriesText.setText(createCalorieSummary(stats));
             caloriesBar.setMax(stats.second.getCaloriesGoal());
             caloriesBar.setProgress((int) ((double) stats.first.calories));

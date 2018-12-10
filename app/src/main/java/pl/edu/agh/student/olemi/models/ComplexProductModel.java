@@ -2,6 +2,7 @@ package pl.edu.agh.student.olemi.models;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import pl.edu.agh.student.olemi.entities.Nutrients;
 import pl.edu.agh.student.olemi.entities.NutrientsBuilder;
@@ -57,5 +58,21 @@ public class ComplexProductModel implements ProductModel {
 
     public void setDefaultWeight(Double defaultWeight) {
         this.defaultWeight = defaultWeight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ComplexProductModel that = (ComplexProductModel) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(ingredients, that.ingredients) &&
+                Objects.equals(defaultWeight, that.defaultWeight);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, ingredients, defaultWeight);
     }
 }
